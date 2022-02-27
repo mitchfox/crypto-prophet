@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/crypto-prophet/static/css/main.645d7ba1.css",
-    "main.js": "/crypto-prophet/static/js/main.805d4ef1.js",
+    "main.css": "/crypto-prophet/static/css/main.c033e361.css",
+    "main.js": "/crypto-prophet/static/js/main.2102a09b.js",
     "static/js/787.c775bffc.chunk.js": "/crypto-prophet/static/js/787.c775bffc.chunk.js",
     "static/media/barbell.png": "/crypto-prophet/static/media/barbell.d4d19cbd5415894ee885.png",
     "static/media/LOGO.svg": "/crypto-prophet/static/media/LOGO.c558abe096dd6fe27427db3e1f0d4ff3.svg",
     "index.html": "/crypto-prophet/index.html",
     "static/media/down.svg": "/crypto-prophet/static/media/down.2e2f68ad68e57b0a81f228b5a454be9b.svg",
     "static/media/compare.svg": "/crypto-prophet/static/media/compare.361c22f285f9b13a6da3bb7285f0c67f.svg",
-    "main.645d7ba1.css.map": "/crypto-prophet/static/css/main.645d7ba1.css.map",
-    "main.805d4ef1.js.map": "/crypto-prophet/static/js/main.805d4ef1.js.map",
+    "main.c033e361.css.map": "/crypto-prophet/static/css/main.c033e361.css.map",
+    "main.2102a09b.js.map": "/crypto-prophet/static/js/main.2102a09b.js.map",
     "787.c775bffc.chunk.js.map": "/crypto-prophet/static/js/787.c775bffc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.645d7ba1.css",
-    "static/js/main.805d4ef1.js"
+    "static/css/main.c033e361.css",
+    "static/js/main.2102a09b.js"
   ]
 }
