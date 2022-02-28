@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/crypto-prophet/static/css/main.e3d04716.css",
+    "main.css": "/crypto-prophet/static/css/main.7968da44.css",
     "main.js": "/crypto-prophet/static/js/main.1bf7aeac.js",
     "static/js/787.c775bffc.chunk.js": "/crypto-prophet/static/js/787.c775bffc.chunk.js",
     "static/media/barbell.png": "/crypto-prophet/static/media/barbell.d4d19cbd5415894ee885.png",
@@ -8,12 +8,12 @@
     "index.html": "/crypto-prophet/index.html",
     "static/media/down.svg": "/crypto-prophet/static/media/down.2e2f68ad68e57b0a81f228b5a454be9b.svg",
     "static/media/compare.svg": "/crypto-prophet/static/media/compare.361c22f285f9b13a6da3bb7285f0c67f.svg",
-    "main.e3d04716.css.map": "/crypto-prophet/static/css/main.e3d04716.css.map",
+    "main.7968da44.css.map": "/crypto-prophet/static/css/main.7968da44.css.map",
     "main.1bf7aeac.js.map": "/crypto-prophet/static/js/main.1bf7aeac.js.map",
     "787.c775bffc.chunk.js.map": "/crypto-prophet/static/js/787.c775bffc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3d04716.css",
+    "static/css/main.7968da44.css",
     "static/js/main.1bf7aeac.js"
   ]
 }
