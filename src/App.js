@@ -483,11 +483,11 @@ function App() {
             )}
           </FadeIn>
         </div>
-       
+  
       </div>
       
     </div>
-    {/* <div className='footer'>
+    <div className='footer'>
       <Row className='footerRow'>
         <Col span={3}><img
                     src={Compare}
@@ -498,7 +498,7 @@ function App() {
         <Col span={3}><p>Icon</p></Col>
       </Row>
           
-        </div> */}
+        </div>
   </div>
 
 }
