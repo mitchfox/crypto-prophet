@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/crypto-prophet/static/css/main.867295aa.css",
-    "main.js": "/crypto-prophet/static/js/main.7c824063.js",
-    "static/js/787.c775bffc.chunk.js": "/crypto-prophet/static/js/787.c775bffc.chunk.js",
-    "static/media/barbell.png": "/crypto-prophet/static/media/barbell.d4d19cbd5415894ee885.png",
-    "static/media/COIN.svg": "/crypto-prophet/static/media/COIN.e5deca89121c96ed8e5fdee0e523ea13.svg",
-    "static/media/LOGO.svg": "/crypto-prophet/static/media/LOGO.b80dfc3e5e01e5760225038150b2b595.svg",
-    "index.html": "/crypto-prophet/index.html",
-    "static/media/down.svg": "/crypto-prophet/static/media/down.2e2f68ad68e57b0a81f228b5a454be9b.svg",
-    "static/media/compare.svg": "/crypto-prophet/static/media/compare.361c22f285f9b13a6da3bb7285f0c67f.svg",
-    "main.867295aa.css.map": "/crypto-prophet/static/css/main.867295aa.css.map",
-    "main.7c824063.js.map": "/crypto-prophet/static/js/main.7c824063.js.map",
-    "787.c775bffc.chunk.js.map": "/crypto-prophet/static/js/787.c775bffc.chunk.js.map"
+    "main.css": "/static/css/main.867295aa.css",
+    "main.js": "/static/js/main.89fa86be.js",
+    "static/js/787.c775bffc.chunk.js": "/static/js/787.c775bffc.chunk.js",
+    "static/media/barbell.png": "/static/media/barbell.d4d19cbd5415894ee885.png",
+    "static/media/COIN.svg": "/static/media/COIN.e5deca89121c96ed8e5fdee0e523ea13.svg",
+    "static/media/LOGO.svg": "/static/media/LOGO.b80dfc3e5e01e5760225038150b2b595.svg",
+    "index.html": "/index.html",
+    "static/media/down.svg": "/static/media/down.2e2f68ad68e57b0a81f228b5a454be9b.svg",
+    "static/media/compare.svg": "/static/media/compare.361c22f285f9b13a6da3bb7285f0c67f.svg",
+    "main.867295aa.css.map": "/static/css/main.867295aa.css.map",
+    "main.89fa86be.js.map": "/static/js/main.89fa86be.js.map",
+    "787.c775bffc.chunk.js.map": "/static/js/787.c775bffc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.867295aa.css",
-    "static/js/main.7c824063.js"
+    "static/js/main.89fa86be.js"
   ]
 }
