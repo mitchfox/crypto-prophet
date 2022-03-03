@@ -1,7 +1,7 @@
 {
   "name": "coingecko",
   "version": "0.1.2",
-  "homepage": "https://mitchfox.github.io/crypto-prophet",
+  "homepage": "https://cryptoprophets.io",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.3.0-beta3",
