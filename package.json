@@ -22,8 +22,10 @@
     "react": "^17.0.2",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-bulma-components": "^4.1.0",
+    "react-burger-menu": "^3.0.6",
     "react-dom": "^17.0.2",
     "react-fade-in": "^2.0.1",
+    "react-flexible-sliding-menu": "^0.1.9",
     "react-particles-js": "^3.6.0",
     "react-scripts": "5.0.0",
     "react-scroll": "^1.8.5",
@@ -36,6 +38,7 @@
     "reactjs-popup": "^2.0.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.1",
+    "styled-components": "^5.3.3",
     "vanta": "^0.5.21",
     "victory": "^36.2.1",
     "web-vitals": "^2.1.4"

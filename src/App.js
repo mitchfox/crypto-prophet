@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Component, useRef } from 'react';
+import React, { useState, useEffect, Component, useRef, useContext } from 'react';
 import IntToString from './components/ToString';
-// import Meatballs from './components/Meatballs';
+import Navbar from './components/Nav/Navbar';
 
 // Packages
 import axios from 'axios';
@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { motion } from "framer-motion"
 import Popup from 'reactjs-popup';
 import FadeIn from 'react-fade-in';
+
 
 // Edit Background Template
 import FOG from 'vanta/dist/vanta.fog.min'
@@ -23,8 +24,6 @@ import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-
 
 
 // Images
@@ -32,8 +31,6 @@ import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Logo from './assets/LOGO.svg';
 import Coin from './assets/COIN.svg';
 import Compare from './assets/compare.svg';
-import Arrow from './assets/icons/down.svg';
-import Dumbell from './assets/icons/barbell.png';
 
 
 // TODO
@@ -53,21 +50,22 @@ function App() {
   var stableData = [];
   var cryptoData = [];
   var [sessionData, setSessionData] = useState([]);
-
   var [totalInvestment, setTotalInvestment] = useState(0);
   var [updatedInvestment, setUpdatedInvestment] = useState(0);
 
+  // React Select States
   var [firstSelected, setFirstSelected] = useState('');
   var [secondSelected, setSecondSelected] = useState('');
   var [firstAdditional, setFirstAdditional] = useState('');
   var [secondAdditional, setSecondAdditional] = useState('');
-
-
-
   var [percent, setPercent] = useState(0);
 
+  // Vanta Background
   const [vantaEffect, setVantaEffect] = useState(0)
   const myRef = useRef(null)
+
+  // Slide Out Menu
+  // const { toggleMenu } = useContext(MenuContext);
 
   // Retreive Inital API Crypto Data
   var getListData = async () => {
@@ -80,10 +78,8 @@ function App() {
     };
 
     try {
-
       // Add Ad to start of array
       cryptoData.push(adObject);
-
       // Return Array of Coingecko Stablecoins
       const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
       for (var s in stables.data) {
@@ -93,7 +89,6 @@ function App() {
         var stableObj = Object.assign(stableID);
         stableData.push(stableObj);
       }
-
 
       // Return Array of Crypto Data
       for (var x in pageNumber) {
@@ -112,6 +107,7 @@ function App() {
           var href = res.data[i].image;
           var name = res.data[i].name;
           var price = res.data[i].current_price
+          var rank = res.data[i].value
           var assetLabel = {
             label: <div>
               <Row justify="center" align="middle">
@@ -273,6 +269,7 @@ function App() {
 
   // Rerending without API CALLS!
   useEffect(() => {
+
   }, [[firstSelected, secondSelected, percent, totalInvestment, updatedInvestment]])
 
 
@@ -283,17 +280,36 @@ function App() {
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
-        // minHeight: 2000,
+        minHeight: 200.00,
         minWidth: 200.00,
-        highlightColor: 0x24244d,
-        midtoneColor: 0x3d4282,
-        lowlightColor: 0xff87eb,
-        baseColor: 0x20242a,
-        blurFactor: 0.71,
-        speed: 2.40,
-        zoom: 2.21
+        highlightColor: 0x151952,
+        midtoneColor: 0x3c002b,
+        lowlightColor: 0x121228,
+        baseColor: 0x20202,
+        blurFactor: 0.67,
+        speed: 3.20,
+        zoom: 2.00
+
+        // Old Colour Scheme not too contrasting
+        // mouseControls: true,
+        // touchControls: true,
+        // gyroControls: false,
+        // // minHeight: 2000,
+        // minWidth: 200.00,
+        // highlightColor: 0x24244d,
+        // midtoneColor: 0x3d4282,
+        // lowlightColor: 0xff87eb,
+        // baseColor: 0x20242a,
+        // blurFactor: 0.71,
+        // speed: 2.40,
+        // zoom: 2.21
+
       }))
+
+
     }
+
+
     return () => {
       // if (vantaEffect) vantaEffect.destroy()
     }
@@ -305,7 +321,14 @@ function App() {
   return <div ref={myRef} className={'main'}>
     <div>
       <div className='content'>
+        {/* Menu Burger - Positioned Far Right */}
+        <Row style={{ marginTop: '30px', marginRight: '30px', alignContent: 'right', height: '30px' }}>
+          <Col span={11}></Col>
+          <Col span={1}><Navbar /></Col>
+        </Row>
+      
         <div className='contentChildren'>
+
           <FadeIn
             delay={400}
             transitionDuration={800}
@@ -313,6 +336,7 @@ function App() {
               // Possible function once everything has faded into frame
             }}
           >
+
             {/* Logo */}
             <div>
               <img
@@ -371,7 +395,7 @@ function App() {
                   {/* Calculation Area */}
                   <div className='resultContainer shimmer'>
                     {firstSelected == 1 || secondSelected == 1 ?
-                      <p className='resultText'></p> : <p className='resultText'>{firstSelected.name} with the same Market Cap as {secondSelected.name}</p>}
+                      <p className='resultText'></p> : <p className='resultText'>{firstSelected.name} with {secondSelected.name}s Market Cap</p>}
                     <div className={'xArea'}>
                       <div className={'labelSide'}>
                         <img src={firstSelected.image} className={'xImage'} />
@@ -380,6 +404,7 @@ function App() {
                       <div className={'xSide'}>
 
                         <p id="xText">{percent.toFixed(1)}X</p>
+                        <img src={Logo} className="smallLogo"></img>
                       </div>
                     </div>
                   </div>
@@ -483,38 +508,11 @@ function App() {
             )}
           </FadeIn>
         </div>
-  
       </div>
-      
     </div>
-    <div className='footer'>
-      <Row className='footerRow'>
-        <Col span={3}><img
-                    src={Compare}
-                    alt={'Crypto Battle Icon'}
-                    style={{ width: '10px' }}
-                  /></Col>
-        <Col span={6}><p>Crypto Prophets. 2022</p></Col>
-        <Col span={3}><p>Icon</p></Col>
-      </Row>
-          
-        </div>
   </div>
-
 }
 
-{/* 
-            <Row gutter={0}>
-              <Col span={4} className={'competitorItem'}>
-                <Sparklines data={firstAdditional.market_data.sparkline_7d.price} limit={60} width={40} height={40} margin={5}>
-                  <SparklinesLine style={{ fill: "none" }} /></Sparklines>
-              </Col>
-              <Col span={4} className={'competitorType'}>Price Action</Col>
-              <Col span={4} className={'competitorItem'}>
-               <Sparklines data={secondAdditional.market_data.sparkline_7d.price} style={{ fill: "none", strokeWidth: '1', stroke: '#ffffff' }} limit={60} width={25} height={25} margin={5}>
-                  <SparklinesLine style={{ fill: "none" }} /></Sparklines>
-              </Col>
-            </Row> */}
 
 
 // Input Styling
@@ -524,23 +522,29 @@ const customStyles = {
     ...base,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '20px',
-    background: 'rgba( 255, 255, 255, 0.2 )',
+    borderRadius: '15px',
+    background: 'rgba( 255, 255, 255, 0.12 )',
     boxShadow: '0 8px 22px 0 rgba( 31, 38, 135, 0.07 )',
-    backdropFilter: 'blur( 10px )',
-    webkitBackdropFilter: 'blur( 10px )',
+    backdropFilter: 'blur( 5px )',
+    webkitBackdropFilter: 'blur( 5px )',
     border: '1px solid rgba( 255, 255, 255, 0.10 )',
     marginBottom: '15px',
     marginTop: '15px',
+    "&:hover": {
+      transform: 'scale(1.05)',
+      // border: '0.5px solid rgba( 255, 255, 255, 0.80 )',
+    }
+    // padding: state. ? '0px' : '10px' 
 
   }),
   // Typed Text & Search
   input: (provided) => ({
     ...provided,
     color: '#ffffff',
-    height: '6vh',
+    height: '5vh',
     alignItems: 'center',
     justifyContent: 'center',
+    // padding: '10px'
   }),
   // Box Container
   container: (provided) => ({
@@ -565,13 +569,13 @@ const customStyles = {
     ...base,
     color: '#ffffff',
     // paddingBottom: 10,
-    paddingTop: 10,
+    // paddingTop: 10,
     marginTop: 0,
     marginBottom: 0,
-    backgroundColor: state.isFocused ? 'rgba( 255, 255, 255, 0.25 )' : 'rgba( 255, 255, 255, 0.0 )',
-    borderBottom: '1px solid #C7D2DD',
-    backdropFilter: 'blur( 10px )',
-    webkitBackdropFilter: 'blur( 10px )',
+    backgroundColor: state.isFocused ? 'rgba( 255, 255, 255, 0.2 )' : 'rgba( 255, 255, 255, 0.0 )',
+    borderBottom: '1px solid rgba( 255, 255, 255, 0.4 )',
+    backdropFilter: 'blur( 40px )',
+    webkitBackdropFilter: 'blur( 40px )',
 
   }),
 
@@ -588,7 +592,8 @@ const customStyles = {
   menu: (provided, state) => ({
     ...provided,
     borderRadius: '20px',
-    background: 'rgba( 255, 255, 255, 0.25 )',
+    marginTop: '15px',
+    background: 'rgba( 255, 255, 255, 0.15 )',
     boxShadow: '0 8px 22px 0 rgba( 31, 38, 135, 0.07 )',
     border: '1px solid rgba( 255, 255, 255, 0.10 )'
   }),
