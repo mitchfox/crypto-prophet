@@ -29,7 +29,8 @@ import "react-simple-flex-grid/lib/main.css";
 // Images
 // import CrossSVG from './assets/icons/cross.svg';
 import Logo from './assets/LOGO.svg';
-import Coin from './assets/COIN.svg';
+import LongLogo from './assets/long-logo.svg';
+import Share from './assets/icons/external-link.svg';
 import Compare from './assets/compare.svg';
 
 
@@ -257,21 +258,15 @@ function App() {
 
 
 
-
-
   // Similiar to OnMount -> [] = rerender when changed!
   useEffect(() => {
-
     // Getting Crypto Data
     getListData();
   }, [])
 
-
   // Rerending without API CALLS!
   useEffect(() => {
-
   }, [[firstSelected, secondSelected, percent, totalInvestment, updatedInvestment]])
-
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -322,13 +317,12 @@ function App() {
     <div>
       <div className='content'>
         {/* Menu Burger - Positioned Far Right */}
-        <Row style={{ marginTop: '30px', marginRight: '30px', alignContent: 'right', height: '30px' }}>
+        <Row style={{ marginTop: '20px', marginRight: '20px', alignContent: 'right', height: '30px' }}>
           <Col span={11}></Col>
           <Col span={1}><Navbar /></Col>
         </Row>
-      
-        <div className='contentChildren'>
 
+        <div className='contentChildren'>
           <FadeIn
             delay={400}
             transitionDuration={800}
@@ -336,7 +330,6 @@ function App() {
               // Possible function once everything has faded into frame
             }}
           >
-
             {/* Logo */}
             <div>
               <img
@@ -395,7 +388,18 @@ function App() {
                   {/* Calculation Area */}
                   <div className='resultContainer shimmer'>
                     {firstSelected == 1 || secondSelected == 1 ?
-                      <p className='resultText'></p> : <p className='resultText'>{firstSelected.name} with {secondSelected.name}s Market Cap</p>}
+
+                      <p className='resultText'></p> :
+
+                      <Row align="center">
+                        <Col span={1}></Col>
+                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{firstSelected.name} with {secondSelected.name}s Market Cap</p>
+                        </Col>
+                        <Col span={1}>
+                        </Col>
+
+                      </Row>
+                    }
                     <div className={'xArea'}>
                       <div className={'labelSide'}>
                         <img src={firstSelected.image} className={'xImage'} />
@@ -404,8 +408,17 @@ function App() {
                       <div className={'xSide'}>
 
                         <p id="xText">{percent.toFixed(1)}X</p>
-                        <img src={Logo} className="smallLogo"></img>
+                      
                       </div>
+                      <Row align="center" justify="middle" style={{ marginBottom: '2vh', marginTop: '2vh', width: '85%', marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Col span={2}></Col>
+                        <Col span={8} align="center" style={{ alignContent: 'center' }}><img src={LongLogo} className={'LongLogo'}/>
+                        </Col>
+                        <Col span={2} align="right">
+                          <img src={Share} className={'shareIcon'}/>
+                        </Col>
+
+                      </Row>
                     </div>
                   </div>
 
@@ -532,9 +545,7 @@ const customStyles = {
     marginTop: '15px',
     "&:hover": {
       transform: 'scale(1.05)',
-      // border: '0.5px solid rgba( 255, 255, 255, 0.80 )',
     }
-    // padding: state. ? '0px' : '10px' 
 
   }),
   // Typed Text & Search

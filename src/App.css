@@ -42,15 +42,21 @@ font-size: 50px;
 }
 
 .Logo {
-  width: 20vh;
+  width: 22vh;
   height: auto;
   margin-bottom: 3vh;
   padding: 0px;
 }
 
+.LongLogo {
+  width: 70%;
+  max-width: 160px;
+  height: auto;
+}
+
 .iconLabel {
-  margin-bottom: 12px;
-  margin-top: 10px;
+  margin-bottom: 7px;
+  margin-top: 5px;
 }
 
 
@@ -93,7 +99,7 @@ font-size: 50px;
 
 /*  Crypto Results Area */
 .resultContainer {
-  margin-top: 2.5vh;
+  margin-top: 3.5vh;
   position: relative;
   text-align: center;
   width: 80%;
@@ -110,6 +116,11 @@ font-size: 50px;
   -webkit-backdrop-filter: blur( 10px );
   animation-duration: infinite;
   border: 1px solid rgba( 255, 255, 255, 0.10 );
+  transition: all .2s ease-in-out;
+}
+
+.resultContainer:hover {
+  transform: scale(1.05);
 }
 
 .resultText {
@@ -117,18 +128,15 @@ font-size: 50px;
   font-size: calc(12px + 0.2vw);
   text-align: center;
   font-weight: 700;
-  width: 80%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2vh;
   padding-top: 2vh;
 }
 
-
-
-
 .xImage {
-  width: 20%;
+  width: 15%;
   max-width: 100px;
   height: auto;
   margin-bottom: 0px;
@@ -136,7 +144,7 @@ font-size: 50px;
 }
 
 #priceText {
-  font-size: calc(24px + 1.5vw);
+  font-size: calc(22px + 1vw);
   font-weight: 700;
   margin-bottom: 0px;
   margin-top: 0px;
@@ -150,20 +158,13 @@ font-size: 50px;
   margin-left: auto;
   margin-right: auto;
   color: #C7D2DD;
-  margin-top: -5px;
   margin: 0px;
 }
 
-.smallLogo {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2vh;
-  width: 6vh;
+.shareIcon {
+  width: calc(15px + 0.5vw);
   height: auto;
-}
-
-#shareIcon {
-
+  opacity: 0.5;
 }
 
 

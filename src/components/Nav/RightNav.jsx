@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import './RightNav.css'
 
 const Ul = styled.ul`
     list-style: none;
@@ -28,11 +29,15 @@ const Ul = styled.ul`
 const RightNav = ({ open }) => {
   return (
     <Ul open={open}>
+
       <li>Dark Mode</li>
       <li>Donate</li>
       <li>Contact Us</li>
       <li>Sign In</li>
       <li>Sign Up</li>
+      <div className='box'>
+
+      </div>
     </Ul>
   )
 }
