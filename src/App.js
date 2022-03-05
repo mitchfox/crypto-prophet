@@ -308,10 +308,12 @@ function App() {
                 <Col span={12}>
                   <Select
                     defaultValue={{ label: "Select Crypto 🅰️", value: 0 }}
+                    value={firstSelected}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
                       firstHandler(e);
+                      console.log(e.marketcap);
                     }}
                     styles={customStyles}
                   />
@@ -327,9 +329,9 @@ function App() {
                     alt={'Crypto Battle Icon'}
                     onClick={() => {
                       // swapSelections(firstSelected, secondSelected);
-                      // firstHandler(secondSelected);
-                      // SecondHandler(firstSelected);
-                      // console.log("switched");
+                      firstHandler(secondSelected);
+                      SecondHandler(firstSelected);
+                      setPercent((firstSelected.marketcap / secondSelected.marketcap) * 1);
                     }}
                   /></Col>
               </Row>
@@ -340,10 +342,12 @@ function App() {
                 <Col span={12}>
                   <Select
                     defaultValue={{ label: "Select Crypto 🅱️", value: 0 }}
+                    value={secondSelected}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
                       SecondHandler(e)
+                      console.log(e.marketcap);
                     }}
                     styles={customStyles}
                   /></Col>
@@ -471,7 +475,7 @@ function App() {
                         <Col span={8} align="center" style={{ alignContent: 'center' }}><img src={LongLogo} className={'LongLogo'} />
                         </Col>
                         <Col span={2} align="right">
-                          <img src={Twitter} className={'containerIcon'} />
+                          <img src={Customise} className={'containerIcon'} />
                         </Col>
                       </Row>
                     </div>
@@ -483,16 +487,7 @@ function App() {
                   </div>
 
 
-                  {/* Featured Products */}
-                  {/* <p className='featuredText'>Featured Crypto Product of the Week</p> */}
-                  {/* <div className='shinyContainer featuredProduct'>
-                    <div id='children'>
-                      <Row style={{ height: '5vh' }}>
-                        <Col span={3}></Col>
-                        <Col span={9}> </Col>
-                      </Row>
-                    </div>
-                  </div> */}
+          
                 </FadeIn>
               </div>
             ) : (
@@ -605,7 +600,24 @@ const customStyles = {
 };
 
 
-// var testArrayFoo = () => {
+
+
+
+export default App;
+
+        {/* Featured Products */}
+                  {/* <p className='featuredText'>Featured Crypto Product of the Week</p> */}
+                  {/* <div className='shinyContainer featuredProduct'>
+                    <div id='children'>
+                      <Row style={{ height: '5vh' }}>
+                        <Col span={3}></Col>
+                        <Col span={9}> </Col>
+                      </Row>
+                    </div>
+                  </div> */}
+
+
+                  // var testArrayFoo = () => {
 //   var testArray = [
 //     {
 //       name: 'bitcoin',
@@ -625,6 +637,3 @@ const customStyles = {
 
 //   console.log(testArray);
 // }
-
-
-export default App;
