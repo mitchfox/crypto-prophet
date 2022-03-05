@@ -9,39 +9,34 @@ import { motion } from "framer-motion"
 import Popup from 'reactjs-popup';
 import FadeIn from 'react-fade-in';
 
-
 // Edit Background Template
 import FOG from 'vanta/dist/vanta.fog.min'
 
 // CSS Packages
 import './App.css';
-// import 'bulma/css/bulma.min.css';
 import '../node_modules/react-vis/dist/style.css';
-import { XYPlot, LineSeries } from 'react-vis';
-import format from 'date-fns/format';
-import { Button, Columns } from 'react-bulma-components';
-import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
+// import { XYPlot, LineSeries } from 'react-vis';
+// import format from 'date-fns/format';
+// import { Button, Columns } from 'react-bulma-components';
+// import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
 
-
 // Images
 // import CrossSVG from './assets/icons/cross.svg';
-import Logo from './assets/LOGO.svg';
-import LongLogo from './assets/long-logo.svg';
-import Share from './assets/icons/external-link.svg';
-import Compare from './assets/compare.svg';
-
+import Logo from './assets/logo/LOGO.svg';
+import LongLogo from './assets/logo/long-logo.svg';
+import Swap from './assets/icons/swap.svg';
+import Twitter from './assets/icons/twitter.svg';
+import Settings from './assets/icons/settings.svg';
+import Customise from './assets/icons/customise.svg';
+import Analytics from './assets/icons/analytics.svg';
 
 // TODO
-// Add ranks next to coins on the left
-// Add extra api calls for more complex graohs and stats using original api ticker symbols for search
-// Add memu icon
 // Add info icons next to names explaining what they mean because of abbreviated names
 // Set up donations
-
-
+//
 
 function App() {
   // Coingecko MAX = 250 per call
@@ -57,16 +52,14 @@ function App() {
   // React Select States
   var [firstSelected, setFirstSelected] = useState('');
   var [secondSelected, setSecondSelected] = useState('');
-  var [firstAdditional, setFirstAdditional] = useState('');
-  var [secondAdditional, setSecondAdditional] = useState('');
+  var [firstSpecific, setFirstSpecific] = useState('');
+  var [secondSpecific, setSecondSpecific] = useState('');
   var [percent, setPercent] = useState(0);
+  var [swapCount, setSwapCount] = useState(0);
 
   // Vanta Background
   const [vantaEffect, setVantaEffect] = useState(0)
   const myRef = useRef(null)
-
-  // Slide Out Menu
-  // const { toggleMenu } = useContext(MenuContext);
 
   // Retreive Inital API Crypto Data
   var getListData = async () => {
@@ -122,7 +115,6 @@ function App() {
               </Row>
             </div>
           }
-
           // Adding Objects to Neat Crypto Data Array
           var assetName = {
             name: res.data[i].name
@@ -169,28 +161,25 @@ function App() {
     }
   };
 
-  var fetchFirstAddtionalData = async (selected) => {
+  // Grab additional market data not available in initial broad api call
+  var fetchFirstSpecificData = async (selected) => {
     try {
       var response = await axios.get(
         "https://api.coingecko.com/api/v3/coins/" + selected +
         "?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true");
-      setFirstAdditional(response.data);
+      setFirstSpecific(response.data);
 
     } catch (error) {
       console.log(error)
     }
   }
 
-  var fetchSecondAddtionalData = async (selected) => {
+  var fetchSecondSpecificData = async (selected) => {
     try {
       var response = await axios.get(
         "https://api.coingecko.com/api/v3/coins/" + selected +
         "?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true");
-
-      // checkForStableCoin(response.data)
-      console.log(response.data);
-
-      setSecondAdditional(response.data);
+      setSecondSpecific(response.data);
 
     } catch (error) {
       console.log(error)
@@ -200,11 +189,11 @@ function App() {
   // First Handler for Input
   var firstHandler = (e) => {
     // Fetching Additional Data
-    fetchFirstAddtionalData(e.value);
+    fetchFirstSpecificData(e.value);
     setFirstSelected(e);
 
+
     if (secondSelected != []) {
-      console.log('The Second is not empty');
       var f = e.marketcap;
       var s = secondSelected.marketcap;
       setPercent((s / f) * 1);
@@ -214,11 +203,12 @@ function App() {
     }
     else {
     }
+
   }
 
   // Second Handler for Input
   var SecondHandler = (e) => {
-    fetchSecondAddtionalData(e.value);
+    fetchSecondSpecificData(e.value);
     setSecondSelected(e);
 
     if (firstSelected != []) {
@@ -234,27 +224,16 @@ function App() {
   }
 
 
-  // var testArrayFoo = () => {
-  //   var testArray = [
-  //     {
-  //       name: 'bitcoin',
-  //       catergory: 'crypto'
-  //     },
-  //     {
-  //       name: 'tether',
-  //       catergory: 'stablecoin'
-  //     },
-  //     {
-  //       name: 'bnb',
-  //       catergory: 'crypto'
-  //     }
-  //   ];
-  //   console.log(testArray);
-  //   var testArray = testArray.filter(person => person.catergory != 'stablecoin');
 
-  //   console.log(testArray);
+  // Swaps Result Area
+  // TODO create boolean for switched select equalling true or false. if true animate react select boxes 
+  
+  // var swapSelections = (currentFirst, currentSecond) => {
+  //   setSwapCount(swapCount + 1);
+  //   console.log(swapCount);
+  //   firstHandler(currentSecond)
+  //   setSecondSelected(currentFirst);
   // }
-
 
 
 
@@ -285,25 +264,8 @@ function App() {
         speed: 3.20,
         zoom: 2.00
 
-        // Old Colour Scheme not too contrasting
-        // mouseControls: true,
-        // touchControls: true,
-        // gyroControls: false,
-        // // minHeight: 2000,
-        // minWidth: 200.00,
-        // highlightColor: 0x24244d,
-        // midtoneColor: 0x3d4282,
-        // lowlightColor: 0xff87eb,
-        // baseColor: 0x20242a,
-        // blurFactor: 0.71,
-        // speed: 2.40,
-        // zoom: 2.21
-
       }))
-
-
     }
-
 
     return () => {
       // if (vantaEffect) vantaEffect.destroy()
@@ -341,7 +303,7 @@ function App() {
               <Row gutter={0} align={'middle'} className={'inputRow'}>
                 <Col span={12}>
                   <Select
-                    defaultValue={{ label: "Search A Crypto 😇", value: 0 }}
+                    defaultValue={{ label: "Select Crypto A 😇", value: 0 }}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -356,10 +318,12 @@ function App() {
               <Row gutter={0} align={'middle'}>
                 <Col span={12} className='iconContainer'>
                   <img
-                    src={Compare}
+                    src={Swap}
                     className={'icon'}
                     alt={'Crypto Battle Icon'}
-                    style={{ width: 'auto', height: 'calc(2vw + 10px)', maxHeight: '120px', color: 'white' }}
+                    onClick = { () => {
+                      // swapSelections(firstSelected, secondSelected);
+                    }}
                   /></Col>
               </Row>
 
@@ -368,7 +332,7 @@ function App() {
               <Row gutter={0} align={'middle'} className={'inputRow'}>
                 <Col span={12}>
                   <Select
-                    defaultValue={{ label: "Search A Crypto 🥵", value: 0 }}
+                    defaultValue={{ label: "Select Crypto B 🥵", value: 0 }}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -386,134 +350,144 @@ function App() {
               <div>
                 <FadeIn>
                   {/* Calculation Area */}
-                  <div className='resultContainer shimmer'>
+                  <div className='shinyContainer shimmer'>
                     {firstSelected == 1 || secondSelected == 1 ?
-
                       <p className='resultText'></p> :
-
                       <Row align="center">
                         <Col span={1}></Col>
                         <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{firstSelected.name} with {secondSelected.name}s Market Cap</p>
                         </Col>
                         <Col span={1}>
                         </Col>
-
                       </Row>
                     }
                     <div className={'xArea'}>
                       <div className={'labelSide'}>
                         <img src={firstSelected.image} className={'xImage'} />
-                        <p id="priceText">${(percent * firstSelected.price).toFixed(4)}</p>
+                        <p className='priceText'>${(percent * firstSelected.price).toFixed(4)}</p>
                       </div>
                       <div className={'xSide'}>
-
-                        <p id="xText">{percent.toFixed(1)}X</p>
-                      
+                        {percent * firstSelected.price > firstSelected.price ?
+                          <p className='xText positive'>{percent.toFixed(1)}X</p>
+                          :
+                          <p className='xText negative'>{percent.toFixed(1)}X</p>
+                        }
                       </div>
                       <Row align="center" justify="middle" style={{ marginBottom: '2vh', marginTop: '2vh', width: '85%', marginLeft: 'auto', marginRight: 'auto' }}>
-                        <Col span={2}></Col>
-                        <Col span={8} align="center" style={{ alignContent: 'center' }}><img src={LongLogo} className={'LongLogo'}/>
+                        <Col span={2} align="left">
+                          <Popup
+                            trigger={ModalIcon}
+                            modal
+                            nested>
+                            {close => (
+                              <div className="modal">
+                                <div className="content">
+                                  <FadeIn
+                                    delay={200}
+                                    transitionDuration={500}>
+                                    <Row gutter={0} className={'comparisonRow'} style={{ marginBottom: '2vh' }}>
+                                      <Col span={3} className={'competitorItem'}><img src={firstSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
+                                      <Col span={6} className={'competitorType'} style={{ marginTop: 'auto', marginBottom: 'auto', textTransform: 'uppercase' }}>{firstSelected.symbol} vs {secondSelected.symbol}</Col>
+                                      <Col span={3} className={'competitorItem'}><img src={secondSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRow'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.market_cap_rank}</Col>
+                                      <Col span={6} className={'competitorType'}>Rank</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.market_cap_rank}</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSelected.marketcaprounded}</Col>
+                                      <Col span={6} className={'competitorType'}>Market Cap</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelected.marketcaprounded}</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRow'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={6} className={'competitorType'}>24HR Change</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={6} className={'competitorType'}>24HR Change</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRow'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSelected.highchange}%</Col>
+                                      <Col span={6} className={'competitorType'}>ATH % Change</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelected.highchange}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.liquidity_score}%</Col>
+                                      <Col span={6} className={'competitorType'}>Liquidity Score</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.liquidity_score}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRow'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.developer_score}%</Col>
+                                      <Col span={6} className={'competitorType'}>Developer Score</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.developer_score}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.community_score}%</Col>
+                                      <Col span={6} className={'competitorType'}>Community Score</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.community_score}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRow'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.sentiment_votes_up_percentage}%</Col>
+                                      <Col span={6} className={'competitorType'}>CG Upvote %</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.sentiment_votes_up_percentage}%</Col>
+                                    </Row>
+
+                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                      <Col span={3} className={'competitorItem'}>{firstSpecific.public_interest_score}%</Col>
+                                      <Col span={6} className={'competitorType'}>Public Interest Score</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSpecific.public_interest_score}%</Col>
+                                    </Row>
+
+                                    <button id="modalClose" onClick={close}>
+                                      {/* &times; */}
+                                      Exit
+                                    </button>
+
+                                  </FadeIn>
+                                </div>
+                              </div>
+                            )}
+                          </Popup></Col>
+                        <Col span={8} align="center" style={{ alignContent: 'center' }}><img src={LongLogo} className={'LongLogo'} />
                         </Col>
                         <Col span={2} align="right">
-                          <img src={Share} className={'shareIcon'}/>
+                          <img src={Twitter} className={'containerIcon'} />
                         </Col>
-
                       </Row>
                     </div>
                   </div>
-
                   <div>
+
                     {/* Crypto Compete Area */}
                     {/* Rank */}
+                  </div>
+
+
+                  {/* Featured Products */}
+                  {/* <p className='featuredText'>Featured Crypto Product of the Week</p> */}
+                  <div className='shinyContainer featuredProduct'>
+                    <div id='children'>
+                      <Row style={{ height: '5vh' }}>
+                        <Col span={3}></Col>
+                        <Col span={9}> </Col>
+                      </Row>
+                    </div>
 
 
                   </div>
-                  <Popup
-                    trigger={<button className="modalButton">Open Advanced Analysis</button>}
-                    modal
-                    nested>
-                    {close => (
-                      <div className="modal">
-                        <div className="content">
-                          <FadeIn
-                            delay={200}
-                            transitionDuration={500}>
-                            <Row gutter={0} className={'comparisonRow'} style={{ marginBottom: '2vh' }}>
-                              <Col span={3} className={'competitorItem'}><img src={firstSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
-                              <Col span={6} className={'competitorType'} style={{ marginTop: 'auto', marginBottom: 'auto', textTransform: 'uppercase' }}>{firstSelected.symbol} vs {secondSelected.symbol}</Col>
-                              <Col span={3} className={'competitorItem'}><img src={secondSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRow'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.market_cap_rank}</Col>
-                              <Col span={6} className={'competitorType'}>Rank</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.market_cap_rank}</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRowAlt'}>
-                              <Col span={3} className={'competitorItem'}>{firstSelected.marketcaprounded}</Col>
-                              <Col span={6} className={'competitorType'}>Market Cap</Col>
-                              <Col span={3} className={'competitorItem'}>{secondSelected.marketcaprounded}</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRow'}>
-                              <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
-                              <Col span={6} className={'competitorType'}>24HR Change</Col>
-                              <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRowAlt'}>
-                              <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
-                              <Col span={6} className={'competitorType'}>24HR Change</Col>
-                              <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRow'}>
-                              <Col span={3} className={'competitorItem'}>{firstSelected.highchange}%</Col>
-                              <Col span={6} className={'competitorType'}>ATH % Change</Col>
-                              <Col span={3} className={'competitorItem'}>{secondSelected.highchange}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRowAlt'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.liquidity_score}%</Col>
-                              <Col span={6} className={'competitorType'}>Liquidity Score</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.liquidity_score}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRow'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.developer_score}%</Col>
-                              <Col span={6} className={'competitorType'}>Developer Score</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.developer_score}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRowAlt'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.community_score}%</Col>
-                              <Col span={6} className={'competitorType'}>Community Score</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.community_score}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRow'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.sentiment_votes_up_percentage}%</Col>
-                              <Col span={6} className={'competitorType'}>CG Upvote %</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.sentiment_votes_up_percentage}%</Col>
-                            </Row>
-
-                            <Row gutter={0} className={'comparisonRowAlt'}>
-                              <Col span={3} className={'competitorItem'}>{firstAdditional.public_interest_score}%</Col>
-                              <Col span={6} className={'competitorType'}>Public Interest Score</Col>
-                              <Col span={3} className={'competitorItem'}>{secondAdditional.public_interest_score}%</Col>
-                            </Row>
-
-                            <button id="modalClose" onClick={close}>
-                              {/* &times; */}
-                              Exit
-                            </button>
-
-                          </FadeIn>
-                        </div>
-                      </div>
-                    )}
-                  </Popup>
                 </FadeIn>
               </div>
             ) : (
@@ -526,7 +500,12 @@ function App() {
   </div>
 }
 
-
+// Modal Icon
+const ModalIcon = () => {
+  return (
+    <img src={Analytics} className={'containerIcon'} />
+  );
+}
 
 // Input Styling
 const customStyles = {
@@ -543,6 +522,7 @@ const customStyles = {
     border: '1px solid rgba( 255, 255, 255, 0.10 )',
     marginBottom: '15px',
     marginTop: '15px',
+    transition: 'all .17s ease-in-out',
     "&:hover": {
       transform: 'scale(1.05)',
     }
@@ -618,6 +598,28 @@ const customStyles = {
   }),
 
 };
+
+
+    // var testArrayFoo = () => {
+  //   var testArray = [
+  //     {
+  //       name: 'bitcoin',
+  //       catergory: 'crypto'
+  //     },
+  //     {
+  //       name: 'tether',
+  //       catergory: 'stablecoin'
+  //     },
+  //     {
+  //       name: 'bnb',
+  //       catergory: 'crypto'
+  //     }
+  //   ];
+  //   console.log(testArray);
+  //   var testArray = testArray.filter(person => person.catergory != 'stablecoin');
+
+  //   console.log(testArray);
+  // }
 
 
 export default App;

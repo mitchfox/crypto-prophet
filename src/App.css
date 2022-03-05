@@ -48,18 +48,10 @@ font-size: 50px;
   padding: 0px;
 }
 
-.LongLogo {
-  width: 70%;
-  max-width: 160px;
-  height: auto;
-}
-
 .iconLabel {
   margin-bottom: 7px;
   margin-top: 5px;
 }
-
-
 
 
 
@@ -90,15 +82,24 @@ font-size: 50px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
+  height: calc(0.6vw + 25px);
+  width: auto;
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  transition: all .1s ease-in-out;
+  /* opacity: 0.50; */
+  /* transform: rotate(90deg); */
+}
+
+.icon:hover {
+  transform: scale(1.1);
 }
 
 
 
 /*  Crypto Results Area */
-.resultContainer {
+.shinyContainer {
   margin-top: 3.5vh;
   position: relative;
   text-align: center;
@@ -107,11 +108,9 @@ font-size: 50px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 700;
   border-radius: 35px;
   animation-duration: 10s;
   animation-name: gradient;
-  /* background: rgba( 255, 255, 255, 0.2 ); */
   backdrop-filter: blur( 10px );
   -webkit-backdrop-filter: blur( 10px );
   animation-duration: infinite;
@@ -119,9 +118,9 @@ font-size: 50px;
   transition: all .2s ease-in-out;
 }
 
-.resultContainer:hover {
+/* .shinyContainer:hover {
   transform: scale(1.05);
-}
+} */
 
 .resultText {
   position: relative;
@@ -131,7 +130,7 @@ font-size: 50px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 2vh;
+  margin-bottom: 1.5vh;
   padding-top: 2vh;
 }
 
@@ -140,11 +139,10 @@ font-size: 50px;
   max-width: 100px;
   height: auto;
   margin-bottom: 0px;
-  /* margin-top: 15px; */
 }
 
-#priceText {
-  font-size: calc(22px + 1vw);
+.priceText {
+  font-size: calc(30px + 0.6vw);
   font-weight: 700;
   margin-bottom: 0px;
   margin-top: 0px;
@@ -152,21 +150,41 @@ font-size: 50px;
   color: #ffffff;
 }
 
-#xText {
-  font-size: calc(14px + 0.6vw);
+.xText {
+  font-size: calc(12px + 0.6vw);
   font-weight: 700;
   margin-left: auto;
   margin-right: auto;
   color: #C7D2DD;
-  margin: 0px;
+  margin-top: -5px;
 }
 
-.shareIcon {
-  width: calc(15px + 0.5vw);
+.positive {
+  color: #32f88b;
+
+}
+
+.negative {
+  color: #ce0923;
+}
+
+.containerIcon {
+  width: calc(14px + 0.5vw);
+  height: auto;
+  opacity: 0.5;
+  transition: all .15s ease-in-out;
+}
+
+.containerIcon:hover {
+  transform: scale(1.1);
+}
+
+.LongLogo {
+  width: 75%;
+  max-width: 160px;
   height: auto;
   opacity: 0.5;
 }
-
 
 .shimmer {
   background: linear-gradient(-45deg, rgba(16, 32, 255, 0.2), rgba(207, 16, 255, 0.2), rgba(70, 135, 255, 0.2), rgba(255, 132, 16, 0.2));  
@@ -189,11 +207,6 @@ font-size: 50px;
 
 
 
-
-
-
-
-
 .modalButton {
   font-weight: 700;
   font-size: calc(14px + 0.2vw);
@@ -203,13 +216,8 @@ font-size: 50px;
   max-width: 300px;
   height: 5vh;
   justify-content: center;
-  /* border-radius: 20px; */
   border: 0px;
   background: rgba( 255, 255, 255, 0.0 );
-  /* box-shadow: 0 8px 22px 0 rgba( 31, 38, 135, 0.07 );
-  backdrop-filter: blur( 10px );
-  -webkit-backdrop-filter: blur( 10px );
-  border: 1px solid rgba( 255, 255, 255, 0.10 ); */
   text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
 }
@@ -217,12 +225,8 @@ font-size: 50px;
 
 
 
-
-
-
 /*  Additional Data  */
 .comparisonRow {
-  /* background-color: #222222; */
   border-radius: 5px;
   margin-top: 1vh;
   margin-bottom: 1vh;
@@ -270,12 +274,9 @@ font-size: 50px;
 }
 
 .popup-overlay {
-  /* background: rgba(156, 48, 48, 0.5); */
   background: rgba( 0, 0, 0, 0.6 );
-  /* box-shadow: 0 8px 22px 0 rgba( 31, 38, 135, 0.07 ); */
   backdrop-filter: blur( 20px );
   -webkit-backdrop-filter: blur( 20px );
-  /* border: 1px solid rgba( 255, 255, 255, 0.10 ); */
   animation-name: anvil;
 }
 
@@ -319,6 +320,19 @@ font-size: 50px;
   -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 }
 
+
+
+/*  Featured Product of the Week */
+.featuredProduct {
+  font-weight: 700;
+  font-size: calc(10px + 0.2vw);
+  background: rgba( 0, 0, 0, 0.3 );
+}
+
+/* .featuredText {
+  font-weight: 700;
+  font-size: calc(10px + 0.2vw);
+} */
 
 
 
