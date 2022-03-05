@@ -49,8 +49,8 @@ font-size: 50px;
 }
 
 .iconLabel {
-  margin-bottom: 7px;
-  margin-top: 5px;
+  margin-bottom: 4px;
+  margin-top: 1px;
 }
 
 
@@ -58,8 +58,8 @@ font-size: 50px;
 /* INPUT AREA */
 .inputRow {
   text-align: center;
-  width: 80%;
-  max-width: 600px;
+  width: 85%;
+  max-width: 420px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -105,7 +105,7 @@ font-size: 50px;
   text-align: center;
   width: 80%;
   height: auto;
-  max-width: 600px;
+  max-width: 420px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 35px;

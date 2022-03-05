@@ -29,7 +29,6 @@ import Logo from './assets/logo/LOGO.svg';
 import LongLogo from './assets/logo/long-logo.svg';
 import Swap from './assets/icons/swap.svg';
 import Twitter from './assets/icons/twitter.svg';
-import Settings from './assets/icons/settings.svg';
 import Customise from './assets/icons/customise.svg';
 import Analytics from './assets/icons/analytics.svg';
 
@@ -75,82 +74,93 @@ function App() {
       // Add Ad to start of array
       cryptoData.push(adObject);
       // Return Array of Coingecko Stablecoins
-      const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
-      for (var s in stables.data) {
-        var stableID = {
-          name: stables.data[s].id
-        }
-        var stableObj = Object.assign(stableID);
-        stableData.push(stableObj);
-      }
-
+      // const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
+      // for (var s in stables.data) {
+      //   var stableID = {
+      //     stableName: stables.data[s].id
+      //   }
+      //   var stableObj = Object.assign(stableID);
+      //   stableData.push(stableObj);
+      // }
       // Return Array of Crypto Data
       for (var x in pageNumber) {
         const res = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page="
           + numOfCoins + "&page=" + pageNumber[x] + "&sparkline=false");
-
         // Create New Array with Loops
+        
         for (var i in res.data) {
-          // Name ID = for mapping list IMPORTANT
+          
+          var checkID = res.data[i].id;
+          if (checkID == "tether" || checkID == "usd-coin" || checkID == "binance-usd" || checkID == "terrausd" || checkID == "dai" || checkID == "frax" || checkID == "magic-internet-money"
+            || checkID == "true-usd" || checkID == "paxos-standard" || checkID == "fei-usd") {
 
-          var assetValue = {
-            value: res.data[i].id
-          }
-          // Name & Image = Label in List
-          var href = res.data[i].image;
-          var name = res.data[i].name;
-          var price = res.data[i].current_price
-          var rank = res.data[i].value
-          var assetLabel = {
-            label: <div>
-              <Row justify="center" align="middle">
-                <Col span={12}>
-                  <div className='iconLabel'>
+          } else {
+            var assetValue = {
+              value: res.data[i].id
+            }
+            // Name & Image = Label in List
+            var href = res.data[i].image;
+            var name = res.data[i].name;
+            var price = res.data[i].current_price
+            var rank = res.data[i].market_cap_rank
+            var assetLabel = {
+              label: <div>
+                <Row justify="center" align="middle">
+                  <Col span={12}>
+                    <div className='iconLabel'>
+                    
                     <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
-                    <p style={{ display: 'inline-block', textTransform: 'uppercase', marginRight: '10px' }}>{name}</p>
-                    <p style={{ display: 'inline-block', color: '#c9c9c9' }}>${price}</p>
-                  </div>
-                </Col>
-              </Row>
-            </div>
+                    <p style={{ display: 'inline-block', color: '#c9c9c9', marginRight: '10px' }}>{rank}. </p>  
+                      <p style={{ display: 'inline-block', textTransform: 'uppercase', marginRight: '10px' }}>{name}</p>
+                      <p style={{ display: 'inline-block', color: '#c9c9c9' }}>${price}</p>
+                    </div>
+                  </Col>
+                  {/* <Col span={1}>
+                  
+                  </Col> */}
+                </Row>
+              </div>
+            }
+            // Adding Objects to Neat Crypto Data Array
+            var assetName = {
+              name: res.data[i].name
+            }
+            var assetImage = {
+              image: res.data[i].image
+            }
+            var assetSymbol = {
+              symbol: res.data[i].symbol
+            }
+            var assetPrice = {
+              price: res.data[i].current_price
+            }
+            var assetMarketCapRounded = {
+              marketcaprounded: IntToString(res.data[i].market_cap)
+            }
+            var assetVolumeRounded = {
+              volumerounded: IntToString(res.data[i].total_volume)
+            }
+            var assetMarketCap = {
+              marketcap: res.data[i].market_cap
+            }
+            var assetVolume = {
+              volume: res.data[i].total_volume
+            }
+            var assetHighChange = {
+              highchange: res.data[i].ath_change_percentage
+            }
+            var assetDailyChange = {
+              dailychange: res.data[i].price_change_percentage_24h
+            }
+            var listObj = Object.assign(assetValue, assetLabel, assetName, assetImage, assetSymbol, assetPrice, assetMarketCapRounded, assetMarketCap,
+              assetVolume, assetVolumeRounded, assetHighChange, assetDailyChange);
+            cryptoData.push(listObj);
           }
-          // Adding Objects to Neat Crypto Data Array
-          var assetName = {
-            name: res.data[i].name
-          }
-          var assetImage = {
-            image: res.data[i].image
-          }
-          var assetSymbol = {
-            symbol: res.data[i].symbol
-          }
-          var assetPrice = {
-            price: res.data[i].current_price
-          }
-          var assetMarketCapRounded = {
-            marketcaprounded: IntToString(res.data[i].market_cap)
-          }
-          var assetVolumeRounded = {
-            volumerounded: IntToString(res.data[i].total_volume)
-          }
-          var assetMarketCap = {
-            marketcap: res.data[i].market_cap
-          }
-          var assetVolume = {
-            volume: res.data[i].total_volume
-          }
-          var assetHighChange = {
-            highchange: res.data[i].ath_change_percentage
-          }
-          var assetDailyChange = {
-            dailychange: res.data[i].price_change_percentage_24h
-          }
-          var listObj = Object.assign(assetValue, assetLabel, assetName, assetImage, assetSymbol, assetPrice, assetMarketCapRounded, assetMarketCap,
-            assetVolume, assetVolumeRounded, assetHighChange, assetDailyChange);
-          cryptoData.push(listObj);
         }
       }
+
+
 
       setSessionData(cryptoData);
       setIsLoading(false);
@@ -192,7 +202,6 @@ function App() {
     fetchFirstSpecificData(e.value);
     setFirstSelected(e);
 
-
     if (secondSelected != []) {
       var f = e.marketcap;
       var s = secondSelected.marketcap;
@@ -203,7 +212,6 @@ function App() {
     }
     else {
     }
-
   }
 
   // Second Handler for Input
@@ -224,18 +232,15 @@ function App() {
   }
 
 
-
   // Swaps Result Area
   // TODO create boolean for switched select equalling true or false. if true animate react select boxes 
-  
+
   // var swapSelections = (currentFirst, currentSecond) => {
   //   setSwapCount(swapCount + 1);
   //   console.log(swapCount);
-  //   firstHandler(currentSecond)
-  //   setSecondSelected(currentFirst);
+  //   // firstHandler(currentSecond)
+  //   // setSecondSelected(currentFirst);
   // }
-
-
 
   // Similiar to OnMount -> [] = rerender when changed!
   useEffect(() => {
@@ -283,7 +288,6 @@ function App() {
           <Col span={11}></Col>
           <Col span={1}><Navbar /></Col>
         </Row>
-
         <div className='contentChildren'>
           <FadeIn
             delay={400}
@@ -303,7 +307,7 @@ function App() {
               <Row gutter={0} align={'middle'} className={'inputRow'}>
                 <Col span={12}>
                   <Select
-                    defaultValue={{ label: "Select Crypto A 😇", value: 0 }}
+                    defaultValue={{ label: "Select Crypto 🅰️", value: 0 }}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -321,8 +325,11 @@ function App() {
                     src={Swap}
                     className={'icon'}
                     alt={'Crypto Battle Icon'}
-                    onClick = { () => {
+                    onClick={() => {
                       // swapSelections(firstSelected, secondSelected);
+                      // firstHandler(secondSelected);
+                      // SecondHandler(firstSelected);
+                      // console.log("switched");
                     }}
                   /></Col>
               </Row>
@@ -332,7 +339,7 @@ function App() {
               <Row gutter={0} align={'middle'} className={'inputRow'}>
                 <Col span={12}>
                   <Select
-                    defaultValue={{ label: "Select Crypto B 🥵", value: 0 }}
+                    defaultValue={{ label: "Select Crypto 🅱️", value: 0 }}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -478,16 +485,14 @@ function App() {
 
                   {/* Featured Products */}
                   {/* <p className='featuredText'>Featured Crypto Product of the Week</p> */}
-                  <div className='shinyContainer featuredProduct'>
+                  {/* <div className='shinyContainer featuredProduct'>
                     <div id='children'>
                       <Row style={{ height: '5vh' }}>
                         <Col span={3}></Col>
                         <Col span={9}> </Col>
                       </Row>
                     </div>
-
-
-                  </div>
+                  </div> */}
                 </FadeIn>
               </div>
             ) : (
@@ -600,26 +605,26 @@ const customStyles = {
 };
 
 
-    // var testArrayFoo = () => {
-  //   var testArray = [
-  //     {
-  //       name: 'bitcoin',
-  //       catergory: 'crypto'
-  //     },
-  //     {
-  //       name: 'tether',
-  //       catergory: 'stablecoin'
-  //     },
-  //     {
-  //       name: 'bnb',
-  //       catergory: 'crypto'
-  //     }
-  //   ];
-  //   console.log(testArray);
-  //   var testArray = testArray.filter(person => person.catergory != 'stablecoin');
+// var testArrayFoo = () => {
+//   var testArray = [
+//     {
+//       name: 'bitcoin',
+//       catergory: 'crypto'
+//     },
+//     {
+//       name: 'tether',
+//       catergory: 'stablecoin'
+//     },
+//     {
+//       name: 'bnb',
+//       catergory: 'crypto'
+//     }
+//   ];
+//   console.log(testArray);
+//   var testArray = testArray.filter(person => person.catergory != 'stablecoin');
 
-  //   console.log(testArray);
-  // }
+//   console.log(testArray);
+// }
 
 
 export default App;

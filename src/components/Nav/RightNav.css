@@ -1,3 +1,27 @@
+.container {
+    align-items: center;
+}
+
+
+.listItem {
+    height: 40px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.listItemIcon {
+    height: 20px;
+    width: auto;
+    margin-left: auto;
+}
+
+.listItemText {
+    margin-left: 20px;
+    margin-right: auto;
+    font-size: 700;
+}
+
 .box {
     height: 100px;
     width: 80%;
@@ -12,4 +36,10 @@
     background: linear-gradient(-45deg, rgba(16, 32, 255, 0.2), rgba(207, 16, 255, 0.2), rgba(70, 135, 255, 0.2), rgba(255, 132, 16, 0.2));  
     margin-left: auto;
     margin-right: auto;
+}
+
+
+.burger:hover {
+    transform: scale(1.05);
+    color: #C7D2DD;
 }

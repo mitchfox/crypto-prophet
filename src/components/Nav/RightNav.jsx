@@ -2,6 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import './RightNav.css'
 
+// Packages
+import { Row, Col } from 'react-simple-flex-grid';
+import "react-simple-flex-grid/lib/main.css";
+
+// Images
+import Settings from '../../assets/icons/settings.svg';
+
+
 const Ul = styled.ul`
     text-align: left;
     list-style: none;
@@ -18,7 +26,7 @@ const Ul = styled.ul`
     right: 0;
     height: 100vh;
     min-width: 300px;
-    width: 50vw;
+    width: 100vw;
     padding-top: 3.5rem;
     transition: transform 0.3s ease-in-out;
     li {
@@ -31,16 +39,26 @@ const Ul = styled.ul`
 const RightNav = ({ open }) => {
   return (
     <Ul open={open}>
+      <div className='container'>
+        {/* <Row className="listItem" align="middle">
+          <Col span={1}><img src={Settings} className='listItemIcon' /></Col>
+          <Col span={11}><li className='listItemText'>Settings</li></Col>
 
-      <div className='boxAlt'>
-        <li>Nexo</li>
+        </Row>
+
+
+        <div className='boxAlt'>
+          <li>Nexo</li>
+        </div>
+        <div className='boxAlt'>
+          <li>Orion</li>
+        </div>
+        <div className='boxAlt'>
+          <li>Nexo</li>
+        </div> */}
       </div>
-      <div className='boxAlt'>
-        <li>Orion</li>
-      </div>
-      <div className='boxAlt'>
-        <li>Nexo</li>
-      </div>
+
+
     </Ul>
   )
 }
