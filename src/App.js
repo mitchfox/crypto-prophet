@@ -5,7 +5,7 @@ import Navbar from './components/Nav/Navbar';
 // Packages
 import axios from 'axios';
 import Select from 'react-select';
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import Popup from 'reactjs-popup';
 import FadeIn from 'react-fade-in';
 
@@ -15,10 +15,6 @@ import FOG from 'vanta/dist/vanta.fog.min'
 // CSS Packages
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
-// import { XYPlot, LineSeries } from 'react-vis';
-// import format from 'date-fns/format';
-// import { Button, Columns } from 'react-bulma-components';
-// import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
@@ -38,23 +34,29 @@ import Analytics from './assets/icons/analytics.svg';
 //
 
 function App() {
-  // Coingecko MAX = 250 per call
-  const numOfCoins = 100;
+  // API Variables
+  const numOfCoins = 100;   // Coingecko MAX = 250 per call
   var pageNumber = [1, 2, 3, 4, 5, 6, 7]
   var [isLoading, setIsLoading] = useState(true);
+
+  // API DATA
   var stableData = [];
   var cryptoData = [];
   var [sessionData, setSessionData] = useState([]);
-  var [totalInvestment, setTotalInvestment] = useState(0);
-  var [updatedInvestment, setUpdatedInvestment] = useState(0);
 
-  // React Select States
-  var [firstSelected, setFirstSelected] = useState('');
-  var [secondSelected, setSecondSelected] = useState('');
+  // React Select States & Results
+  var [firstSelectObject, setFirstSelectObject] = useState('');
+  var [secondSelectObject, setSecondSelectObject] = useState('');
+  var [percent, setPercent] = useState(0);
+  var [swapActive, setSwapActive] = useState(false);
+
+  // Additional Data API
   var [firstSpecific, setFirstSpecific] = useState('');
   var [secondSpecific, setSecondSpecific] = useState('');
-  var [percent, setPercent] = useState(0);
-  var [swapCount, setSwapCount] = useState(0);
+
+  // Customised Data
+  var [totalInvestment, setTotalInvestment] = useState(0);
+  var [updatedInvestment, setUpdatedInvestment] = useState(0);
 
   // Vanta Background
   const [vantaEffect, setVantaEffect] = useState(0)
@@ -200,11 +202,11 @@ function App() {
   var firstHandler = (e) => {
     // Fetching Additional Data
     fetchFirstSpecificData(e.value);
-    setFirstSelected(e);
+    setFirstSelectObject(e);
 
-    if (secondSelected != []) {
+    if (secondSelectObject != []) {
       var f = e.marketcap;
-      var s = secondSelected.marketcap;
+      var s = secondSelectObject.marketcap;
       setPercent((s / f) * 1);
       if (totalInvestment != 0) {
         setUpdatedInvestment(totalInvestment * percent);
@@ -217,10 +219,10 @@ function App() {
   // Second Handler for Input
   var SecondHandler = (e) => {
     fetchSecondSpecificData(e.value);
-    setSecondSelected(e);
+    setSecondSelectObject(e);
 
-    if (firstSelected != []) {
-      var f = firstSelected.marketcap;
+    if (firstSelectObject != []) {
+      var f = firstSelectObject.marketcap;
       var s = e.marketcap;
       setPercent((s / f) * 1);
       if (totalInvestment != 0) {
@@ -231,26 +233,15 @@ function App() {
     }
   }
 
-
-  // Swaps Result Area
-  // TODO create boolean for switched select equalling true or false. if true animate react select boxes 
-
-  // var swapSelections = (currentFirst, currentSecond) => {
-  //   setSwapCount(swapCount + 1);
-  //   console.log(swapCount);
-  //   // firstHandler(currentSecond)
-  //   // setSecondSelected(currentFirst);
-  // }
-
-  // Similiar to OnMount -> [] = rerender when changed!
+  // Similiar to OnMount -> 
   useEffect(() => {
     // Getting Crypto Data
     getListData();
   }, [])
 
-  // Rerending without API CALLS!
+  // Rerending without API CALLS. [] = Variables rerender when changed.
   useEffect(() => {
-  }, [[firstSelected, secondSelected, percent, totalInvestment, updatedInvestment]])
+  }, [[firstSelectObject, secondSelectObject, percent, totalInvestment, updatedInvestment]])
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -268,16 +259,12 @@ function App() {
         blurFactor: 0.67,
         speed: 3.20,
         zoom: 2.00
-
       }))
     }
 
     return () => {
       // if (vantaEffect) vantaEffect.destroy()
     }
-
-    console.log(myRef.current)
-
 
   }, [vantaEffect])
   return <div ref={myRef} className={'main'}>
@@ -310,7 +297,7 @@ function App() {
                 <Col span={12}>
                   <Select
                     defaultValue={{ label: "Select Crypto 🅰️", value: 0 }}
-                    value={firstSelected}
+                    value={firstSelectObject}
                     placeholder={"Cryptocurrency 🅰️"}
                     options={sessionData}
                     isLoading={isLoading}
@@ -326,15 +313,19 @@ function App() {
             <div>
               <Row gutter={0} align={'middle'}>
                 <Col span={12} className='iconContainer'>
-                  <img
+                  <motion.img
                     src={Swap}
                     className={'icon'}
                     alt={'Crypto Battle Icon'}
+                    animate={{
+                      rotate: swapActive ? 180 : 0
+                    }}
+                    transition={{ duration: 0.2 }}
                     onClick={() => {
-                      // swapSelections(firstSelected, secondSelected);
-                      firstHandler(secondSelected);
-                      SecondHandler(firstSelected);
-                      setPercent((firstSelected.marketcap / secondSelected.marketcap) * 1);
+                      setSwapActive(!swapActive);
+                      firstHandler(secondSelectObject);
+                      SecondHandler(firstSelectObject);
+                      setPercent((firstSelectObject.marketcap / secondSelectObject.marketcap) * 1);
                     }}
                   /></Col>
               </Row>
@@ -346,7 +337,7 @@ function App() {
                   <Select
                     defaultValue={{ label: "Select Crypto 🅱️", value: 0 }}
                     placeholder={"Cryptocurrency 🅱️"}
-                    value={secondSelected}
+                    value={secondSelectObject}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -361,16 +352,17 @@ function App() {
             </div>
 
             {/* Check if Both Inputs aren't set to their defaults of 0 */}
-            {firstSelected != 0 && secondSelected != 0 ? (
+            {firstSelectObject != 0 && secondSelectObject != 0 ? (
               <div>
-                <FadeIn>
-                  {/* Calculation Area */}
-                  <div className='shinyContainer shimmer'>
-                    {firstSelected == 1 || secondSelected == 1 ?
+
+                {/* Calculation Area */}
+                <div className='shinyContainer shimmer'>
+                  <FadeIn>
+                    {firstSelectObject == 1 || secondSelectObject == 1 ?
                       <p className='resultText'></p> :
                       <Row align="center">
                         <Col span={1}></Col>
-                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{firstSelected.name} with {secondSelected.name}s Market Cap</p>
+                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
                         </Col>
                         <Col span={1}>
                         </Col>
@@ -378,11 +370,11 @@ function App() {
                     }
                     <div className={'xArea'}>
                       <div className={'labelSide'}>
-                        <img src={firstSelected.image} className={'xImage'} />
-                        <p className='priceText'>${(percent * firstSelected.price).toFixed(4)}</p>
+                        <img src={firstSelectObject.image} className={'xImage'} />
+                        <p className='priceText'>${(percent * firstSelectObject.price).toFixed(4)}</p>
                       </div>
                       <div className={'xSide'}>
-                        {percent * firstSelected.price > firstSelected.price ?
+                        {percent * firstSelectObject.price > firstSelectObject.price ?
                           <p className='xText positive'>{percent.toFixed(1)}X</p>
                           :
                           <p className='xText negative'>{percent.toFixed(1)}X</p>
@@ -401,9 +393,9 @@ function App() {
                                     delay={200}
                                     transitionDuration={500}>
                                     <Row gutter={0} className={'comparisonRow'} style={{ marginBottom: '2vh' }}>
-                                      <Col span={3} className={'competitorItem'}><img src={firstSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
-                                      <Col span={6} className={'competitorType'} style={{ marginTop: 'auto', marginBottom: 'auto', textTransform: 'uppercase' }}>{firstSelected.symbol} vs {secondSelected.symbol}</Col>
-                                      <Col span={3} className={'competitorItem'}><img src={secondSelected.image} style={{ width: '40px', height: 'auto' }}></img></Col>
+                                      <Col span={3} className={'competitorItem'}><img src={firstSelectObject.image} style={{ width: '40px', height: 'auto' }}></img></Col>
+                                      <Col span={6} className={'competitorType'} style={{ marginTop: 'auto', marginBottom: 'auto', textTransform: 'uppercase' }}>{firstSelectObject.symbol} vs {secondSelectObject.symbol}</Col>
+                                      <Col span={3} className={'competitorItem'}><img src={secondSelectObject.image} style={{ width: '40px', height: 'auto' }}></img></Col>
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRow'}>
@@ -413,27 +405,27 @@ function App() {
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRowAlt'}>
-                                      <Col span={3} className={'competitorItem'}>{firstSelected.marketcaprounded}</Col>
+                                      <Col span={3} className={'competitorItem'}>{firstSelectObject.marketcaprounded}</Col>
                                       <Col span={6} className={'competitorType'}>Market Cap</Col>
-                                      <Col span={3} className={'competitorItem'}>{secondSelected.marketcaprounded}</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelectObject.marketcaprounded}</Col>
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRow'}>
-                                      <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{firstSelectObject.dailychange.toFixed(1)}%</Col>
                                       <Col span={6} className={'competitorType'}>24HR Change</Col>
-                                      <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelectObject.dailychange.toFixed(1)}%</Col>
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRowAlt'}>
-                                      <Col span={3} className={'competitorItem'}>{firstSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{firstSelectObject.dailychange.toFixed(1)}%</Col>
                                       <Col span={6} className={'competitorType'}>24HR Change</Col>
-                                      <Col span={3} className={'competitorItem'}>{secondSelected.dailychange.toFixed(1)}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelectObject.dailychange.toFixed(1)}%</Col>
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRow'}>
-                                      <Col span={3} className={'competitorItem'}>{firstSelected.highchange}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{firstSelectObject.highchange}%</Col>
                                       <Col span={6} className={'competitorType'}>ATH % Change</Col>
-                                      <Col span={3} className={'competitorItem'}>{secondSelected.highchange}%</Col>
+                                      <Col span={3} className={'competitorItem'}>{secondSelectObject.highchange}%</Col>
                                     </Row>
 
                                     <Row gutter={0} className={'comparisonRowAlt'}>
@@ -483,16 +475,18 @@ function App() {
                         </Col>
                       </Row>
                     </div>
-                  </div>
-                  <div>
+                  </FadeIn>
+                </div>
 
-                    {/* Crypto Compete Area */}
-                    {/* Rank */}
-                  </div>
+                <div>
 
-                  {/* Featured Products */}
+                  {/* Crypto Compete Area */}
+                  {/* Rank */}
+                </div>
 
-                  <div className='shinyContainer featuredProduct'>
+                {/* Featured Products */}
+
+                {/* <div className='shinyContainer featuredProduct'>
                     <div id='children'>
                       <Row style={{ height: '5vh' }}>
                         <Col span={3}></Col>
@@ -502,11 +496,11 @@ function App() {
                         </Col>
                       </Row>
                     </div>
-                  </div>
+                  </div> */}
 
 
 
-                </FadeIn>
+
               </div>
             ) : (
               <div></div>
@@ -626,31 +620,4 @@ const customStyles = {
 };
 
 
-
-
-
 export default App;
-
-
-
-
-                  // var testArrayFoo = () => {
-//   var testArray = [
-//     {
-//       name: 'bitcoin',
-//       catergory: 'crypto'
-//     },
-//     {
-//       name: 'tether',
-//       catergory: 'stablecoin'
-//     },
-//     {
-//       name: 'bnb',
-//       catergory: 'crypto'
-//     }
-//   ];
-//   console.log(testArray);
-//   var testArray = testArray.filter(person => person.catergory != 'stablecoin');
-
-//   console.log(testArray);
-// }
