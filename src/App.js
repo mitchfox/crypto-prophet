@@ -24,9 +24,9 @@ import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
 
 // Images
-// import CrossSVG from './assets/icons/cross.svg';
 import Logo from './assets/logo/LOGO.svg';
 import LongLogo from './assets/logo/long-logo.svg';
+import IconLogo from './assets/logo/icon-logo.svg';
 import Swap from './assets/icons/swap.svg';
 import Twitter from './assets/icons/twitter.svg';
 import Customise from './assets/icons/customise.svg';
@@ -88,9 +88,9 @@ function App() {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page="
           + numOfCoins + "&page=" + pageNumber[x] + "&sparkline=false");
         // Create New Array with Loops
-        
+
         for (var i in res.data) {
-          
+
           var checkID = res.data[i].id;
           if (checkID == "tether" || checkID == "usd-coin" || checkID == "binance-usd" || checkID == "terrausd" || checkID == "dai" || checkID == "frax" || checkID == "magic-internet-money"
             || checkID == "true-usd" || checkID == "paxos-standard" || checkID == "fei-usd") {
@@ -109,9 +109,9 @@ function App() {
                 <Row justify="center" align="middle">
                   <Col span={12}>
                     <div className='iconLabel'>
-                    
-                    <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
-                    <p style={{ display: 'inline-block', color: '#c9c9c9', marginRight: '10px' }}>{rank}. </p>  
+
+                      <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
+                      <p style={{ display: 'inline-block', color: '#c9c9c9', marginRight: '10px' }}>{rank}. </p>
                       <p style={{ display: 'inline-block', textTransform: 'uppercase', marginRight: '10px' }}>{name}</p>
                       <p style={{ display: 'inline-block', color: '#c9c9c9' }}>${price}</p>
                     </div>
@@ -286,7 +286,9 @@ function App() {
         {/* Menu Burger - Positioned Far Right */}
         <Row style={{ marginTop: '20px', marginRight: '20px', alignContent: 'right', height: '30px' }}>
           <Col span={11}></Col>
-          <Col span={1}><Navbar /></Col>
+          <Col span={1}>
+            <Navbar />
+          </Col>
         </Row>
         <div className='contentChildren'>
           <FadeIn
@@ -309,6 +311,7 @@ function App() {
                   <Select
                     defaultValue={{ label: "Select Crypto 🅰️", value: 0 }}
                     value={firstSelected}
+                    placeholder={"Cryptocurrency 🅰️"}
                     options={sessionData}
                     isLoading={isLoading}
                     onChange={(e) => {
@@ -342,6 +345,7 @@ function App() {
                 <Col span={12}>
                   <Select
                     defaultValue={{ label: "Select Crypto 🅱️", value: 0 }}
+                    placeholder={"Cryptocurrency 🅱️"}
                     value={secondSelected}
                     options={sessionData}
                     isLoading={isLoading}
@@ -486,8 +490,22 @@ function App() {
                     {/* Rank */}
                   </div>
 
+                  {/* Featured Products */}
 
-          
+                  <div className='shinyContainer featuredProduct'>
+                    <div id='children'>
+                      <Row style={{ height: '5vh' }}>
+                        <Col span={3}></Col>
+                        <Col span={9}>
+                          <div id="coinwidget" data-icon="true" data-type="primary" data-text="Buy me coffee with Bitcoin" data-wallet="1JBTco78X6zPhqKvzYAX7HaJvqLmNJE6a4">
+                        </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  </div>
+
+
+
                 </FadeIn>
               </div>
             ) : (
@@ -592,9 +610,17 @@ const customStyles = {
   indicatorSeparator: (base) => ({
   }),
 
+  placeholder: (base) => ({
+    ...base,
+    color: '#ffffff',
+    marginLeft: '30px',
+    textTransform: 'uppercase',
+  }),
+
   dropdownIndicator: (base, state) => ({
     ...base,
-    color: '#ffffff'
+    color: '#ffffff',
+
   }),
 
 };
@@ -605,16 +631,7 @@ const customStyles = {
 
 export default App;
 
-        {/* Featured Products */}
-                  {/* <p className='featuredText'>Featured Crypto Product of the Week</p> */}
-                  {/* <div className='shinyContainer featuredProduct'>
-                    <div id='children'>
-                      <Row style={{ height: '5vh' }}>
-                        <Col span={3}></Col>
-                        <Col span={9}> </Col>
-                      </Row>
-                    </div>
-                  </div> */}
+
 
 
                   // var testArrayFoo = () => {
