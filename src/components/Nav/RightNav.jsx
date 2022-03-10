@@ -8,7 +8,7 @@ import "react-simple-flex-grid/lib/main.css";
 
 // Images
 import Settings from '../../assets/icons/settings.svg';
-
+import LongLogo from '../../assets/logo/long-logo.svg';
 
 const Ul = styled.ul`
     text-align: left;
@@ -17,8 +17,8 @@ const Ul = styled.ul`
     flex-flow: row nowrap;
     flex-flow: column nowrap;
     background: rgba( 0, 0, 0, 0.7 );
-    backdrop-filter: blur( 10px );
-    -webkit-backdrop-filter: blur( 10px );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
     z-index: 18;
     position: fixed;
     transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(100%)'};
@@ -39,25 +39,37 @@ const RightNav = ({ open }) => {
   return (
     <Ul open={open}>
       <div className='container'>
-        {/* <Row className="listItem" align="middle">
-          <Col span={1}><img src={Settings} className='listItemIcon' /></Col>
-          <Col span={11}><li className='listItemText'>Settings</li></Col>
-
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li></li>
+          </div></Col>
         </Row>
-
-
-        <div className='boxAlt'>
-          <li>Nexo</li>
-        </div>
-        <div className='boxAlt'>
-          <li>Orion</li>
-        </div>
-        <div className='boxAlt'>
-          <li>Nexo</li>
-        </div> */}
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li>Nexo</li>
+          </div></Col>
+        </Row>
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li>Buy Us a Coffee</li>
+          </div></Col>
+        </Row>
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li>Wanna Advertise with Us?</li>
+          </div></Col>
+        </Row>
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li>Follow us on Twitter</li>
+          </div></Col>
+        </Row>
+        <Row align="midde" justify="center">
+          <Col>   <div className='menuItem'>
+            <li>Crypto Prophets. 2022</li>
+          </div></Col>
+        </Row>
       </div>
-
-
     </Ul>
   )
 }

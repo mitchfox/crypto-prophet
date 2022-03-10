@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component, useRef, useContext } from 'react';
+import React, { useState, useEffect, Component, useRef, useContext, input } from 'react';
 import IntToString from './components/ToString';
 import Navbar from './components/Nav/Navbar';
 
@@ -24,6 +24,7 @@ import Logo from './assets/logo/LOGO.svg';
 import LongLogo from './assets/logo/long-logo.svg';
 import IconLogo from './assets/logo/icon-logo.svg';
 import Swap from './assets/icons/swap.svg';
+// import Expand from './assets/icons/down-arrow.svg';
 import Twitter from './assets/icons/twitter.svg';
 import Customise from './assets/icons/customise.svg';
 import Analytics from './assets/icons/analytics.svg';
@@ -49,6 +50,7 @@ function App() {
   var [secondSelectObject, setSecondSelectObject] = useState('');
   var [percent, setPercent] = useState(0);
   var [swapActive, setSwapActive] = useState(false);
+  var [customisedActive, setCustomisedActive] = useState(false);
 
   // Additional Data API
   var [firstSpecific, setFirstSpecific] = useState('');
@@ -67,8 +69,17 @@ function App() {
     setIsLoading(true);
     // Ad - To be Decided
     var adObject = {
-      value: 'I am an ad!',
-      label: "I am an ad!",
+      value: '',
+      label:
+        <div className='iconLabelAd'>
+          <a
+            className='adlink'
+            style={{ textDecoration: 'none' }}
+            href='https://nexo.sjv.io/cryptoprophets'
+          >
+            <p className='iconLabelAd'>GET UP TO $100 FREE BTC WITH NEXO</p>
+          </a>
+        </div>
       // Add link to Advertiser - Also could add an ad every 10 coins
     };
 
@@ -76,28 +87,34 @@ function App() {
       // Add Ad to start of array
       cryptoData.push(adObject);
       // Return Array of Coingecko Stablecoins
-      // const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
-      // for (var s in stables.data) {
-      //   var stableID = {
-      //     stableName: stables.data[s].id
-      //   }
-      //   var stableObj = Object.assign(stableID);
-      //   stableData.push(stableObj);
-      // }
+      const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
+      console.log(stables.data)
+
       // Return Array of Crypto Data
       for (var x in pageNumber) {
+    
         const res = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page="
           + numOfCoins + "&page=" + pageNumber[x] + "&sparkline=false");
-        // Create New Array with Loops
 
+        // Creating Array of Crypto Data for session
         for (var i in res.data) {
-
+          // Check for stables to exclude them from data
           var checkID = res.data[i].id;
-          if (checkID == "tether" || checkID == "usd-coin" || checkID == "binance-usd" || checkID == "terrausd" || checkID == "dai" || checkID == "frax" || checkID == "magic-internet-money"
-            || checkID == "true-usd" || checkID == "paxos-standard" || checkID == "fei-usd") {
-
+          if (checkID == stables.data[0].id || checkID == stables.data[1].id || checkID == stables.data[2].id || checkID == stables.data[3].id || checkID == stables.data[4].id ||
+            checkID == stables.data[5].id || checkID == stables.data[6].id || checkID == stables.data[7].id || checkID == stables.data[8].id || checkID == stables.data[9].id ||
+            checkID == stables.data[10].id || checkID == stables.data[11].id || checkID == stables.data[12].id || checkID == stables.data[13].id || checkID == stables.data[14].id ||
+            checkID == stables.data[15].id || checkID == stables.data[16].id || checkID == stables.data[17].id || checkID == stables.data[18].id || checkID == stables.data[19].id ||
+            checkID == stables.data[20].id || checkID == stables.data[21].id || checkID == stables.data[23].id || checkID == stables.data[23].id || checkID == stables.data[24].id ||
+            checkID == stables.data[25].id || checkID == stables.data[26].id || checkID == stables.data[27].id || checkID == stables.data[28].id || checkID == stables.data[29].id
+          ) {
+            // Do Nothing with Stable
           } else {
+            // if (i % 10 == 0 && i < 100) {
+            //   cryptoData.push(adObject);
+            // } else {
+            //   // Do nothing
+            // }
             var assetValue = {
               value: res.data[i].id
             }
@@ -111,9 +128,8 @@ function App() {
                 <Row justify="center" align="middle">
                   <Col span={12}>
                     <div className='iconLabel'>
-
-                      <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
                       <p style={{ display: 'inline-block', color: '#c9c9c9', marginRight: '10px' }}>{rank}. </p>
+                      <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
                       <p style={{ display: 'inline-block', textTransform: 'uppercase', marginRight: '10px' }}>{name}</p>
                       <p style={{ display: 'inline-block', color: '#c9c9c9' }}>${price}</p>
                     </div>
@@ -316,10 +332,11 @@ function App() {
                   <motion.img
                     src={Swap}
                     className={'icon'}
-                    alt={'Crypto Battle Icon'}
+                    alt={'Crypto Swap Icon'}
                     animate={{
-                      rotate: swapActive ? 180 : 0
+                      rotate: swapActive ? 180 : 0,
                     }}
+                    whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                     onClick={() => {
                       setSwapActive(!swapActive);
@@ -362,7 +379,7 @@ function App() {
                       <p className='resultText'></p> :
                       <Row align="center">
                         <Col span={1}></Col>
-                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
+                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{ }{firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
                         </Col>
                         <Col span={1}>
                         </Col>
@@ -377,9 +394,10 @@ function App() {
                         {percent * firstSelectObject.price > firstSelectObject.price ?
                           <p className='xText positive'>{percent.toFixed(1)}X</p>
                           :
-                          <p className='xText negative'>{percent.toFixed(1)}X</p>
+                          <p className='xText negative'>{percent.toFixed(4)}X</p>
                         }
                       </div>
+
                       <Row align="center" justify="middle" style={{ marginBottom: '2vh', marginTop: '2vh', width: '85%', marginLeft: 'auto', marginRight: 'auto' }}>
                         <Col span={2} align="left">
                           <Popup
@@ -452,11 +470,11 @@ function App() {
                                       <Col span={3} className={'competitorItem'}>{secondSpecific.sentiment_votes_up_percentage}%</Col>
                                     </Row>
 
-                                    <Row gutter={0} className={'comparisonRowAlt'}>
+                                    {/* <Row gutter={0} className={'comparisonRowAlt'}>
                                       <Col span={3} className={'competitorItem'}>{firstSpecific.public_interest_score}%</Col>
                                       <Col span={6} className={'competitorType'}>Public Interest Score</Col>
                                       <Col span={3} className={'competitorItem'}>{secondSpecific.public_interest_score}%</Col>
-                                    </Row>
+                                    </Row> */}
 
                                     <button id="modalClose" onClick={close}>
                                       {/* &times; */}
@@ -471,34 +489,37 @@ function App() {
                         <Col span={8} align="center" style={{ alignContent: 'center' }}><img src={LongLogo} className={'LongLogo'} />
                         </Col>
                         <Col span={2} align="right">
-                          <img src={Customise} className={'containerIcon'} />
+                          <img
+                            src={Customise}
+                            className={'containerIcon'}
+                            onClick={() => {
+                              setCustomisedActive(!customisedActive);
+                            }}
+                          />
                         </Col>
                       </Row>
                     </div>
+
+
                   </FadeIn>
                 </div>
 
                 <div>
-
-                  {/* Crypto Compete Area */}
-                  {/* Rank */}
                 </div>
 
                 {/* Featured Products */}
-
-                {/* <div className='shinyContainer featuredProduct'>
-                    <div id='children'>
-                      <Row style={{ height: '5vh' }}>
-                        <Col span={3}></Col>
-                        <Col span={9}>
-                          <div id="coinwidget" data-icon="true" data-type="primary" data-text="Buy me coffee with Bitcoin" data-wallet="1JBTco78X6zPhqKvzYAX7HaJvqLmNJE6a4">
+                {/* 
+                <div className='shinyContainer featuredProduct'>
+                  <div id='children'>
+                    <Row style={{ height: '5vh' }}>
+                      <Col span={3}></Col>
+                      <Col span={9}>
+                        <div id="coinwidget" data-icon="true" data-type="primary" data-text="Buy me coffee with Bitcoin" data-wallet="1JBTco78X6zPhqKvzYAX7HaJvqLmNJE6a4">
                         </div>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div> */}
-
-
+                      </Col>
+                    </Row>
+                  </div>
+                </div> */}
 
 
               </div>
@@ -517,6 +538,10 @@ const ModalIcon = () => {
   return (
     <img src={Analytics} className={'containerIcon'} />
   );
+}
+
+const CustomiseIcon = () => {
+
 }
 
 // Input Styling
@@ -538,8 +563,8 @@ const customStyles = {
     "&:hover": {
       transform: 'scale(1.05)',
     }
-
   }),
+
   // Typed Text & Search
   input: (provided) => ({
     ...provided,
@@ -547,8 +572,8 @@ const customStyles = {
     height: '5vh',
     alignItems: 'center',
     justifyContent: 'center',
-    // padding: '10px'
   }),
+
   // Box Container
   container: (provided) => ({
     ...provided,
@@ -571,12 +596,10 @@ const customStyles = {
   option: (base, state) => ({
     ...base,
     color: '#ffffff',
-    // paddingBottom: 10,
-    // paddingTop: 10,
     marginTop: 0,
     marginBottom: 0,
     backgroundColor: state.isFocused ? 'rgba( 255, 255, 255, 0.2 )' : 'rgba( 255, 255, 255, 0.0 )',
-    borderBottom: '1px solid rgba( 255, 255, 255, 0.4 )',
+    borderBottom: '1.2px solid rgba( 255, 255, 255, 0.25 )',
     backdropFilter: 'blur( 40px )',
     webkitBackdropFilter: 'blur( 40px )',
 
@@ -614,9 +637,7 @@ const customStyles = {
   dropdownIndicator: (base, state) => ({
     ...base,
     color: '#ffffff',
-
   }),
-
 };
 
 

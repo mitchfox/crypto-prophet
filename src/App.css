@@ -7,6 +7,7 @@
   align-items: center;
   color: #ffffff;
   font-family: 'Poppins', sans-serif;
+  overflow: hidden;
 }
 
 .ui-select .ui-btn select{
@@ -50,8 +51,24 @@ font-size: 50px;
 
 .iconLabel {
   margin-bottom: 4px;
-  margin-top: 1px;
+  margin-top: 2px;
 }
+
+.iconLabelAd {
+  padding-bottom: 1px;
+  padding-top: 2px;
+  color: #ffffff;
+
+
+}
+
+.adLink {
+  color: #ffffff;
+  text-decoration: none;
+  text-decoration-style: none;
+}
+
+
 
 
 
@@ -65,7 +82,7 @@ font-size: 50px;
   display: flex;
   align-items: center;
   font-weight: 700;
-  font-size: calc(14px + 0.2vw);
+  font-size: calc(13px + 0.2vw);
 }
 
 
@@ -87,15 +104,9 @@ font-size: 50px;
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  transition: all .1s ease-in-out;
-  /* opacity: 0.50; */
-  /* transform: rotate(90deg); */
-}
+  /* transition: all .2s ease-in-out; */
 
-.icon:hover {
-  transform: scale(1.1);
 }
-
 
 
 /*  Crypto Results Area */
@@ -260,7 +271,7 @@ font-size: 50px;
   margin: 0px;
 }
 
-/*  MODAL  */
+/*  MODALS  */
 .modal {
   width: 100%;
   height: 100%;
