@@ -1,6 +1,6 @@
 {
-  "name": "coingecko",
-  "version": "0.1.5",
+  "name": "crypto-prophets",
+  "version": "0.1.6",
   "homepage": "https://cryptoprophets.io",
   "private": true,
   "dependencies": {
