@@ -6,6 +6,8 @@
 
 
 .menuItem {
+    display: block;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     font-weight: 700;
@@ -19,12 +21,26 @@
     width: 10vw;
     min-width: 170px;
     height: auto;
-    opacity: 0.5;
+    opacity: 1;
     position: absolute;
-    bottom: 8.5vh;
+    padding-bottom: 60px;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.menuAboutText {
+    display: block;
+    width: 90%;
+    position: absolute;
+    bottom: 0vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+
 
 /* .box {
     height: 100px;

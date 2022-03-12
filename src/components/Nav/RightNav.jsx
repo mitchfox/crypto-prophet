@@ -5,6 +5,7 @@ import './RightNav.css'
 // Packages
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
+import Select from 'react-select';
 import FadeIn from 'react-fade-in';
 
 // Images
@@ -34,29 +35,37 @@ const Ul = styled.ul`
     }
 `;
 
+// pass vanta theme when close
+
+
 // https://nexo.io/ref/avlggq3sxy?src=web-link
 
 const RightNav = ({ open }) => {
   return (
     <Ul open={open}>
       <FadeIn>
-      <div className='container'>
+        <div className='container'>
+
+          <Row align="middle" justify="center">
+            <Col>   
+            <div className='menuItem'>
+            <li>Select Theme: Coming Soon</li>
+            {/* <Select
+                    defaultValue={{ label: "Dark", value: 0 }}
+                    value={firstSelectObject}
+                    placeholder={"Cryptocurrency 🅰️"}
+                    options={sessionData}
+                    isLoading={isLoading}
+                    onChange={(e) => {
+                      firstHandler(e);
+                      // console.log(e.marketcap);
+                    }}
+                    styles={customStyles}
+                  /> */}
+            </div>
+            </Col>
+          </Row>
         
-          <Row align="middle" justify="center">
-            <Col>   <div className='menuItem'>
-              <li></li>
-            </div></Col>
-          </Row>
-          <Row align="middle" justify="center">
-            <Col>   <div className='menuItem'>
-              <li>Nexo</li>
-            </div></Col>
-          </Row>
-          <Row align="middle" justify="center">
-            <Col>   <div className='menuItem'>
-              <li>Buy Us a Coffee</li>
-            </div></Col>
-          </Row>
           <Row align="middle" justify="center">
             <Col>   <div className='menuItem'>
               <li>Wanna Advertise with Us?</li>
@@ -68,13 +77,25 @@ const RightNav = ({ open }) => {
             </div></Col>
           </Row>
           <Row align="middle" justify="center">
-            <Col>   <div className='menuItemLogo'>
-              <img src={LongLogo} className='menuLogo' />
+            <Col>   <div className='menuAboutText'>
+            <img src={LongLogo} className='menuLogo' />
+              <li style={{  opacity: '0.5' }}>A Cryptocurency Calculation and Prediction Tool that used barious Token Metrics.
+              <br/>Remember this is only a tool! Please do your own research and seek help from a professional before investing!
+              <br/><br/>
+              Version 1.0.6
+              </li>
+
             </div></Col>
           </Row>
-      
-      </div>
-        </FadeIn>
+          <Row align="middle" justify="center">
+            <Col>  <div className='menuItemLogo'>
+              
+              
+            </div></Col>
+          </Row>
+
+        </div>
+      </FadeIn>
     </Ul>
   )
 }

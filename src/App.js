@@ -12,8 +12,9 @@ import FadeIn from 'react-fade-in';
 // Edit Background Template
 import FOG from 'vanta/dist/vanta.fog.min'
 
-// CSS Packages
+// CSS 
 import './App.css';
+import './styles/Modal.css';
 import '../node_modules/react-vis/dist/style.css';
 
 import { Row, Col } from 'react-simple-flex-grid';
@@ -109,11 +110,6 @@ function App() {
           ) {
             // Do Nothing with Stable
           } else {
-            // if (i % 10 == 0 && i < 100) {
-            //   cryptoData.push(adObject);
-            // } else {
-            //   // Do nothing
-            // }
             var assetValue = {
               value: res.data[i].id
             }
@@ -128,7 +124,7 @@ function App() {
                   <Col span={12}>
                     <div className='iconLabel'>
                       <p style={{ display: 'inline-block', color: '#c9c9c9', marginRight: '10px' }}>{rank}. </p>
-                      <img src={href} height="30px" width="30px" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
+                      <img src={href} height="30px" width="auto" style={{ display: 'inline-block', marginBottom: '-10px', marginRight: '10px' }} />
                       <p style={{ display: 'inline-block', textTransform: 'uppercase', marginRight: '10px' }}>{name}</p>
                       <p style={{ display: 'inline-block', color: '#c9c9c9' }}>${price}</p>
                     </div>
@@ -177,11 +173,8 @@ function App() {
         }
       }
 
-
-
       setSessionData(cryptoData);
       setIsLoading(false);
-
 
     } catch (error) {
       console.error(error);
@@ -250,7 +243,6 @@ function App() {
 
   const onChange = (e) => {
     setTotalInvestment(e.currentTarget.value);
-   
   }
 
   // Similiar to OnMount -> 
@@ -268,6 +260,9 @@ function App() {
   }, [totalInvestment, updatedInvestment])
 
   useEffect(() => {
+    // if (!vantaEffect && theme == 'dark')
+    // else if (!vantaEffect && theme == light) 
+
     if (!vantaEffect) {
       setVantaEffect(FOG({
         el: myRef.current,
@@ -291,6 +286,9 @@ function App() {
     }
 
   }, [vantaEffect])
+
+
+
   return <div ref={myRef} className={'main'}>
     <div>
       <div className='content'>
@@ -327,7 +325,7 @@ function App() {
                     isLoading={isLoading}
                     onChange={(e) => {
                       firstHandler(e);
-                      console.log(e.marketcap);
+                      // console.log(e.marketcap);
                     }}
                     styles={customStyles}
                   />
@@ -368,7 +366,7 @@ function App() {
                     isLoading={isLoading}
                     onChange={(e) => {
                       SecondHandler(e)
-                      console.log(e.marketcap);
+                      // console.log(e.marketcap);
                     }}
                     styles={customStyles}
                   /></Col>
@@ -419,12 +417,12 @@ function App() {
                     <div className={'xArea'}>
                       <div className={'labelSide'}>
                         <img src={firstSelectObject.image} className={'xImage'} />
-                        {customisedActive == true ? 
-                        <p className='priceText'>${(updatedInvestment).toFixed(3)}</p>
-                        : 
-                        <p className='priceText'>${(percent * firstSelectObject.price).toFixed(4)}</p>
+                        {customisedActive == true ?
+                          <p className='priceText'>${(updatedInvestment).toFixed(3)}</p>
+                          :
+                          <p className='priceText'>${(percent * firstSelectObject.price).toFixed(4)}</p>
                         }
-                        
+
                       </div>
                       <div className={'xSide'}>
                         {percent * firstSelectObject.price > firstSelectObject.price ?
@@ -442,8 +440,13 @@ function App() {
                           <input
                             type="text"
                             name="name"
-                            placeholder={'Enter Total ' + firstSelectObject.symbol}
-                            style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '700', color: '#ffffff', fontSize: 'calc(12px + 0.2vw)', textTransform: 'uppercase', textAlign: 'center' }}
+                            placeholder={'Enter Amount of ' + firstSelectObject.symbol}
+                            style={{
+                              fontFamily: 'Poppins, sans-serif', border: '0px', fontWeight: '700', color: '#ffffff',
+                              fontSize: 'calc(12px + 0.2vw)', textTransform: 'uppercase', textAlign: 'center', background: 'rgba(255, 255, 255, 0.075)',
+                              transition: 'all .25s ease', paddingRight: '10px', paddingLeft: '10px', paddingTop: '12px', paddingBottom: '12px',
+                              borderRadius: '10px'
+                            }}
                             className='investmentInput'
                             onChange={onChange}
                           />
@@ -568,24 +571,18 @@ function App() {
                 <div>
                 </div>
 
-                {/* Featured Products */}
-                {/* 
-                <div className='shinyContainer featuredProduct'>
-                  <div id='children'>
-                    <Row style={{ height: '5vh' }}>
-                      <Col span={3}></Col>
-                      <Col span={9}>
-                        <div id="coinwidget" data-icon="true" data-type="primary" data-text="Buy me coffee with Bitcoin" data-wallet="1JBTco78X6zPhqKvzYAX7HaJvqLmNJE6a4">
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </div> */}
-
-
               </div>
             ) : (
-              <div></div>
+              <div>
+
+                <div id="adchildren" className='shimmer shinyContainer'>
+                  <Row justify="center" style={{ height: 'auto', paddingTop: '25px', paddingBottom: '25px' }}>
+                    <Col span={12}>
+                      <p>Have a Crypto Project And Want to Advertise Here?</p>
+                    </Col>
+                  </Row>
+                </div>
+              </div>
             )}
           </FadeIn>
         </div>
@@ -623,6 +620,7 @@ const customStyles = {
     transition: 'all .17s ease-in-out',
     "&:hover": {
       transform: 'scale(1.05)',
+      background: 'rgba(255, 255, 255, 0.18)'
     }
   }),
 
@@ -630,7 +628,7 @@ const customStyles = {
   input: (provided) => ({
     ...provided,
     color: '#ffffff',
-    height: '5vh',
+    height: '5.25vh',
     alignItems: 'center',
     justifyContent: 'center',
   }),
