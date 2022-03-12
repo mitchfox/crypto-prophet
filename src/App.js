@@ -31,9 +31,7 @@ import Analytics from './assets/icons/analytics.svg';
 import { ContinuousColorLegend } from 'react-vis';
 
 // TODO
-// Add info icons next to names explaining what they mean because of abbreviated names
-// Set up donations
-//
+// Finish menu
 
 function App() {
   // API Variables

@@ -5,6 +5,7 @@ import './RightNav.css'
 // Packages
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
+import FadeIn from 'react-fade-in';
 
 // Images
 import Settings from '../../assets/icons/settings.svg';
@@ -38,38 +39,42 @@ const Ul = styled.ul`
 const RightNav = ({ open }) => {
   return (
     <Ul open={open}>
+      <FadeIn>
       <div className='container'>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li></li>
-          </div></Col>
-        </Row>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li>Nexo</li>
-          </div></Col>
-        </Row>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li>Buy Us a Coffee</li>
-          </div></Col>
-        </Row>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li>Wanna Advertise with Us?</li>
-          </div></Col>
-        </Row>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li>Follow us on Twitter</li>
-          </div></Col>
-        </Row>
-        <Row align="midde" justify="center">
-          <Col>   <div className='menuItem'>
-            <li>Crypto Prophets. 2022</li>
-          </div></Col>
-        </Row>
+        
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItem'>
+              <li></li>
+            </div></Col>
+          </Row>
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItem'>
+              <li>Nexo</li>
+            </div></Col>
+          </Row>
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItem'>
+              <li>Buy Us a Coffee</li>
+            </div></Col>
+          </Row>
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItem'>
+              <li>Wanna Advertise with Us?</li>
+            </div></Col>
+          </Row>
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItem'>
+              <li>Follow us on Twitter</li>
+            </div></Col>
+          </Row>
+          <Row align="middle" justify="center">
+            <Col>   <div className='menuItemLogo'>
+              <img src={LongLogo} className='menuLogo' />
+            </div></Col>
+          </Row>
+      
       </div>
+        </FadeIn>
     </Ul>
   )
 }

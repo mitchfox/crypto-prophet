@@ -1,32 +1,32 @@
 .container {
     align-items: center;
     margin-top: 8.5vh;
+    height: 100%;
 }
 
-/* .container > Row {
 
-} */
-
-.listItem {
-    height: 40px;
-    width: 80%;
+.menuItem {
     margin-left: auto;
     margin-right: auto;
+    font-weight: 700;
+    margin-bottom: 3vh;
+    width: 100%;
+
 }
 
-.listItemIcon {
-    height: 20px;
-    width: auto;
-    margin-left: auto;
+
+.menuLogo {
+    width: 10vw;
+    min-width: 170px;
+    height: auto;
+    opacity: 0.5;
+    position: absolute;
+    bottom: 8.5vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.listItemText {
-    margin-left: 20px;
-    margin-right: auto;
-    font-size: 700;
-}
-
-.box {
+/* .box {
     height: 100px;
     width: 80%;
     background: linear-gradient(-45deg, rgba(16, 32, 255, 0.2), rgba(207, 16, 255, 0.2), rgba(70, 135, 255, 0.2), rgba(255, 132, 16, 0.2));  
@@ -40,15 +40,16 @@
     background: linear-gradient(-45deg, rgba(16, 32, 255, 0.2), rgba(207, 16, 255, 0.2), rgba(70, 135, 255, 0.2), rgba(255, 132, 16, 0.2));  
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 .burger {
     margin-right: 10px;
     margin-top: 10px;
+    transition: all .2s ease;
 }
 
 
 .burger:hover {
-    transform: scale(1.05);
+    transform: scale(1.075);
     color: #C7D2DD;
 }
