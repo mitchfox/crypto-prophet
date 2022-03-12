@@ -7,9 +7,6 @@ const Nav = styled.nav`
   height: 55px;
   display: flex;
   justify-content: space-between;
-//   .logo {
-//     // padding: 15px 0;
-//   }
 `
 
 const Navbar = () => {

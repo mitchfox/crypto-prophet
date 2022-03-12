@@ -28,6 +28,7 @@ import Swap from './assets/icons/swap.svg';
 import Twitter from './assets/icons/twitter.svg';
 import Customise from './assets/icons/customise.svg';
 import Analytics from './assets/icons/analytics.svg';
+import { ContinuousColorLegend } from 'react-vis';
 
 // TODO
 // Add info icons next to names explaining what they mean because of abbreviated names
@@ -88,11 +89,11 @@ function App() {
       cryptoData.push(adObject);
       // Return Array of Coingecko Stablecoins
       const stables = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&category=stablecoins&order=market_cap_desc&per_page=100&page=1&sparkline=false")
-      console.log(stables.data)
+      // console.log(stables.data)
 
       // Return Array of Crypto Data
       for (var x in pageNumber) {
-    
+
         const res = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page="
           + numOfCoins + "&page=" + pageNumber[x] + "&sparkline=false");
@@ -249,6 +250,11 @@ function App() {
     }
   }
 
+  const onChange = (e) => {
+    setTotalInvestment(e.currentTarget.value);
+   
+  }
+
   // Similiar to OnMount -> 
   useEffect(() => {
     // Getting Crypto Data
@@ -257,7 +263,11 @@ function App() {
 
   // Rerending without API CALLS. [] = Variables rerender when changed.
   useEffect(() => {
-  }, [[firstSelectObject, secondSelectObject, percent, totalInvestment, updatedInvestment]])
+  }, [[firstSelectObject, secondSelectObject, percent]])
+
+  useEffect(() => {
+    setUpdatedInvestment(totalInvestment * (percent * firstSelectObject.price))
+  }, [totalInvestment, updatedInvestment])
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -340,6 +350,7 @@ function App() {
                     transition={{ duration: 0.2 }}
                     onClick={() => {
                       setSwapActive(!swapActive);
+                      setCustomisedActive(false);
                       firstHandler(secondSelectObject);
                       SecondHandler(firstSelectObject);
                       setPercent((firstSelectObject.marketcap / secondSelectObject.marketcap) * 1);
@@ -377,28 +388,78 @@ function App() {
                   <FadeIn>
                     {firstSelectObject == 1 || secondSelectObject == 1 ?
                       <p className='resultText'></p> :
-                      <Row align="center">
-                        <Col span={1}></Col>
-                        <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{ }{firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
-                        </Col>
-                        <Col span={1}>
-                        </Col>
-                      </Row>
-                    }
-                    <div className={'xArea'}>
-                      <div className={'labelSide'}>
-                        <img src={firstSelectObject.image} className={'xImage'} />
-                        <p className='priceText'>${(percent * firstSelectObject.price).toFixed(4)}</p>
-                      </div>
-                      <div className={'xSide'}>
-                        {percent * firstSelectObject.price > firstSelectObject.price ?
-                          <p className='xText positive'>{percent.toFixed(1)}X</p>
+
+                      //  If customised state true update box
+                      <div>
+                        {customisedActive == true ?
+                          <div>
+                            <Row align="center">
+                              <Col span={1}></Col>
+                              <Col span={10} align="center" style={{ alignContent: 'center' }}>
+                                <p className='resultText'>{totalInvestment} {firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
+                              </Col>
+                              <Col span={1}>
+                              </Col>
+                            </Row>
+                          </div>
                           :
-                          <p className='xText negative'>{percent.toFixed(4)}X</p>
+                          <div>
+                            <Row align="center">
+                              <Col span={1}></Col>
+                              <Col span={10} align="center" style={{ alignContent: 'center' }}><p className='resultText'>{ }{firstSelectObject.name} with {secondSelectObject.name}s Market Cap</p>
+                              </Col>
+                              <Col span={1}>
+                              </Col>
+                            </Row>
+                          </div>
                         }
                       </div>
 
-                      <Row align="center" justify="middle" style={{ marginBottom: '2vh', marginTop: '2vh', width: '85%', marginLeft: 'auto', marginRight: 'auto' }}>
+                    }
+
+
+                    <div className={'xArea'}>
+                      <div className={'labelSide'}>
+                        <img src={firstSelectObject.image} className={'xImage'} />
+                        {customisedActive == true ? 
+                        <p className='priceText'>${(updatedInvestment).toFixed(3)}</p>
+                        : 
+                        <p className='priceText'>${(percent * firstSelectObject.price).toFixed(4)}</p>
+                        }
+                        
+                      </div>
+                      <div className={'xSide'}>
+                        {percent * firstSelectObject.price > firstSelectObject.price ?
+                          <p className='xText positive'>{percent.toFixed(3)}X</p>
+                          :
+                          <p className='xText negative'>{percent.toFixed(3)}X</p>
+                        }
+                      </div>
+
+                      {customisedActive == true ?
+                        <form className='customiseForm'>
+                          {/* <label className='labelText'>
+                            Your {firstSelectObject.name} :
+                          </label> */}
+                          <input
+                            type="text"
+                            name="name"
+                            placeholder={'Enter Total ' + firstSelectObject.symbol}
+                            style={{ fontFamily: 'Poppins, sans-serif', fontWeight: '700', color: '#ffffff', fontSize: 'calc(12px + 0.2vw)', textTransform: 'uppercase', textAlign: 'center' }}
+                            className='investmentInput'
+                            onChange={onChange}
+                          />
+                        </form>
+                        :
+                        <div></div>
+
+
+                      }
+
+                      <Row align="center" justify="middle" style={{
+                        marginBottom: '2vh', marginTop: '2vh',
+                        width: '85%', marginLeft: 'auto', marginRight: 'auto'
+                      }}>
                         <Col span={2} align="left">
                           <Popup
                             trigger={ModalIcon}
@@ -494,6 +555,8 @@ function App() {
                             className={'containerIcon'}
                             onClick={() => {
                               setCustomisedActive(!customisedActive);
+                              setTotalInvestment(1)
+                              setUpdatedInvestment(1)
                             }}
                           />
                         </Col>

@@ -3,6 +3,10 @@
     margin-top: 8.5vh;
 }
 
+/* .container > Row {
+
+} */
+
 .listItem {
     height: 40px;
     width: 80%;
@@ -36,6 +40,11 @@
     background: linear-gradient(-45deg, rgba(16, 32, 255, 0.2), rgba(207, 16, 255, 0.2), rgba(70, 135, 255, 0.2), rgba(255, 132, 16, 0.2));  
     margin-left: auto;
     margin-right: auto;
+}
+
+.burger {
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
 

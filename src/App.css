@@ -86,7 +86,6 @@ font-size: 50px;
 }
 
 
-
 /* Compare 'X' */
 #iconContainer {
   height: 100%;
@@ -135,7 +134,7 @@ font-size: 50px;
 
 .resultText {
   position: relative;
-  font-size: calc(12px + 0.2vw);
+  font-size: calc(14px + 0.2vw);
   text-align: center;
   font-weight: 700;
   width: 100%;
@@ -177,6 +176,39 @@ font-size: 50px;
 
 .negative {
   color: #ce0923;
+}
+
+.customiseForm {
+  margin-top: 2.5vh;
+  padding-bottom: 1vh;
+  color: #ffffff;
+}
+
+.labelText {
+  font-size: calc(16px + 0.2vw);
+  font-weight: 700;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.investmentInput {
+  border-radius: 5px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 0px;
+  background: rgba(255, 255, 255, 0.1);
+  font-family: 'Poppins', sans-serif;
+  transition: all .25s ease;
+}
+
+.investmentInput::placeholder {
+  color: #ffffff;
+}
+.investmentInput:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .containerIcon {
