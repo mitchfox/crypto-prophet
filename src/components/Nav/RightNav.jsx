@@ -82,7 +82,7 @@ const RightNav = ({ open }) => {
               <li style={{  opacity: '0.5' }}>A Cryptocurency Calculation and Prediction Tool that used various Token Metrics.
               <br/>Remember this is only a tool! Please do your own research and seek help from a professional before investing!
               <br/><br/>
-              Version 1.0.6
+              Version 1.0.7
               </li>
 
             </div></Col>

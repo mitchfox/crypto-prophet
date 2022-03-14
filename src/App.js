@@ -574,7 +574,7 @@ function App() {
               </div>
             ) : (
               <div>
-
+                <a href='mailto: mitchfoxprojects@gmail.com' style={{ color: '#ffffff' }}>
                 <div id="adchildren" className='shimmer shinyContainer'>
                   <Row justify="center" style={{ height: 'auto', paddingTop: '25px', paddingBottom: '25px' }}>
                     <Col span={12}>
@@ -582,6 +582,7 @@ function App() {
                     </Col>
                   </Row>
                 </div>
+                </a>
               </div>
             )}
           </FadeIn>
@@ -596,10 +597,6 @@ const ModalIcon = () => {
   return (
     <img src={Analytics} className={'containerIcon'} />
   );
-}
-
-const CustomiseIcon = () => {
-
 }
 
 // Input Styling
