@@ -111,7 +111,7 @@ function App() {
             // Do Nothing with Stable
           } else {
             var assetValue = {
-              value: res.data[i].id
+              value: res.data[i].id + res.data[i].symbol
             }
             // Name & Image = Label in List
             var href = res.data[i].image;
@@ -578,7 +578,7 @@ function App() {
                 <div id="adchildren" className='shimmer shinyContainer'>
                   <Row justify="center" style={{ height: 'auto', paddingTop: '25px', paddingBottom: '25px' }}>
                     <Col span={12}>
-                      <p>Have a Crypto Project And Want to Advertise Here?</p>
+                      <p>Have a Crypto Project &#38; Want to Advertise Here?</p>
                     </Col>
                   </Row>
                 </div>

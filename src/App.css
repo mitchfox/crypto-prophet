@@ -292,7 +292,6 @@ font-size: 50px;
 #adchildren {
   font-weight: 700;
   font-size: calc(10px + 0.2vw);
-
   border-radius: 20px;
   transition: all 0.25 ease;
 }

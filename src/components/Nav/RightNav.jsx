@@ -79,7 +79,7 @@ const RightNav = ({ open }) => {
           <Row align="middle" justify="center">
             <Col>   <div className='menuAboutText'>
             <img src={LongLogo} className='menuLogo' />
-              <li style={{  opacity: '0.5' }}>A Cryptocurency Calculation and Prediction Tool that used barious Token Metrics.
+              <li style={{  opacity: '0.5' }}>A Cryptocurency Calculation and Prediction Tool that used various Token Metrics.
               <br/>Remember this is only a tool! Please do your own research and seek help from a professional before investing!
               <br/><br/>
               Version 1.0.6
